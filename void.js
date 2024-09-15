@@ -1,6 +1,5 @@
-/* Implementable into any IDE. */
-
-var calcResult;
+<script>
+		var calcResult;
 		var focusStats;
 		var pauseStats;
 		var allStats = "LABSIM CURRENT STATISTICS:\n";
@@ -9,112 +8,85 @@ var calcResult;
 			writeToConsole("Task succeded");
 			var settingStuffs = clearCmd();
 		}
+		function printVoid(text) {
+			// Print text
+			console.log(text);
+		}
+		function errVoid(text) {
+			// Error handling output
+			console.log(text);
+		}
 		function checkLabLang() { // the compiler for the Void programming language 
-			var commandEntered = document.getElementById("commandBlock").innerText;
-			commandEntered = commandEntered.trim();
-			var commandParts = [];
-			var inQuote = false;
-			var currentPart = "";
-			for (var i = 0; i < commandEntered.length; i++) {
-				var char = commandEntered[i];
-				if (char === '"' && !inQuote) {
-					inQuote = true;
-				}
-				else if (char === '"' && inQuote) {
-					inQuote = false;
-				}
-				else if (char === " " && !inQuote) {
-					commandParts.push(currentPart);
-					currentPart = "";
-				}
-				else {
-					currentPart += char;
-				}
-			}
-			if (currentPart.length > 0) {
-				commandParts.push(currentPart);
-			}
-
+			var commandTyped = document.getElementById("commandBlock").innerText;
+			var commandEntered = commandTyped.replace(/([^\\])\\/g, "$1");
 			// The select command
-			if (commandEntered == "{select}") {
+			if (commandEntered == "select()") {
 				chooseElementPrompt()
-				focusGame();
+				/* Do nothing */
 			}
-			else if (commandEntered.startsWith("{select:")) {
-				var elementName = commandEntered.substring(8, commandEntered.length - 1);
+			else if (commandEntered.startsWith('select(')) {
+				var elementName = commandEntered.substring(7, commandEntered.length - 1);
 				selectElement(elementName);
-				focusGame();
+				/* Do nothing */
 			}
-			else if (commandEntered == "{select=lookup}"){
+			else if (commandEntered == "info()"){
 				currentElement = "lookup";
 			}
-			else if (commandEntered == "{select=tool}") {
+			else if (commandEntered == 'select(&tool)') {
 				chooseToolPrompt();
-				focusGame();
+				/* Do nothing */
 			}
-			else if (commandEntered.startsWith("{select=tool:")) {
+			else if (commandEntered.startsWith('select(tool, ')) {
 				var toolName = commandEntered.substring(13, commandEntered.length - 1);
 				selectElement(toolName);
-				focusGame();
+				/* Do nothing */
 			}
-			else if (commandEntered == "{select=element}") {
-				chooseElementPrompt();
-				focusGame();
+			else if (commandEntered == "select(&element)") {
+				/* Do nothing */
 			}
-			else if (commandEntered == "{select=null}") {
-				focusGame();
+			else if (commandEntered == "select(null)") {
+				/* Do nothing */
 			}
 			else if (commandEntered.startsWith("{definejs:")) {
-				var parts = commandEntered.match(/\{definejs:(.*?):(.*?)\}/);
+				var parts = commandEntered.match(/\$(\w+)=(.*?)\//)
 				if (parts && parts.length === 3) {
 						var variableName = parts[1];
 						var value = parts[2];
 						window[variableName] = value;
 				}
 			}
-			else if (commandEntered == "{size=down}") {
-				mouseSize -= 2;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-				focusGame();
+			else if (commandEntered == "size(-)") {
+				mouseSize -= 2;if (mouseSize < 1) { mouseSize = 1; };/* Do nothing */
+				/* Do nothing */
 			}
-			else if (commandEntered == "{size=minimal}") {
-				mouseSize =1;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-				focusGame();
+			else if (commandEntered == "size(/)") {
+				mouseSize =1;if (mouseSize < 1) { mouseSize = 1; };/* Do nothing */
+				/* Do nothing */
 			}
-			else if (commandEntered == "{size=maximal}") {
-				mouseSize =150;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-				focusGame();
+			else if (commandEntered == "size(*)") {
+				mouseSize =150;if (mouseSize < 1) { mouseSize = 1; };/* Do nothing */
+				/* Do nothing */
 			}
-
-			else if (commandEntered == "{size=low}") {
-				mouseSize -= 2;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-				focusGame();
-			}
-			else if (commandEntered == "{repeat=size=low}") {
-				mouseSize -= 4;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-				focusGame();
-			}
-			else if (commandEntered == "{loop=size=low}") {
-				mouseSize -= 6;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-				focusGame();
-			}
-
-			else if (commandEntered == "{size=up}") {
-				mouseSize += 2;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-				focusGame();
+			else if (commandEntered == "size(+)") {
+				mouseSize += 2;if (mouseSize < 1) { mouseSize = 1; };/* Do nothing */
+				/* Do nothing */
 			}
 			
-			else if (commandEntered == "{print}") {
+			else if (commandEntered == "print()") {
 				alert();
-				focusGame();
+				/* Do nothing */
 			}
-			else if (commandEntered.startsWith('{print:"')) {
-				var alertText = commandEntered.substring(8, commandEntered.length - 2);
+			else if (commandEntered.startsWith('print("')) {
+				var alertText = commandEntered.substring(7, commandEnteredA.length - 2);
 				console.log(alertText);
-				focusGame();
+				/* Do nothing */
 			}
-			else if (commandEntered == "{prompt=addNote}") {
+			else if (commandEntered.startsWith('#')) { // Comments
+				/* Do nothing */
+			}
+			else if (commandEntered == "note()") {
 				addNote();
-				focusGame();
+				/* Do nothing */
 			}
 			else if (commandEntered == "{view=full}") {
 				if (document.fullscreenElement) {
@@ -122,40 +94,40 @@ var calcResult;
 				} else {
 					requestFullScreen(document.body);
 				}
-				focusStats = false;
+				/* Do nothing */
 			}
 			else if (commandEntered == "{view=hide}") {
 				document.getElementById("canvasDiv").style.display="none";
-				focusStats = false;
+				/* Do nothing */
 			}
 			else if (commandEntered == "{view=show}") {
 				document.getElementById("canvasDiv").style.display="block";
-				focusStats = false;
+				/* Do nothing */
 			}
 			else if (commandEntered == "{view=focus}") {
-				focusGame();
+				/* Do nothing */
 			}
 			else if (commandEntered == "{help}") {
-				window.open("https://aeonic.miraheze.org/wiki/LabLang", "_blank");
+				window.open("http://dev.aeonic.me/void/wiki", "_blank");
 			}
 			else if (commandEntered == "{get=focus}") {
 				if (focusStats == false) {
-					alert("Focus is set to: false");
+					console.log("Focus is set to: false");
 				}
 				else if (focusStats == true) {
-					alert("Focus is set to: true");
+					console.log("Focus is set to: true");
 				}
 				else {
-					alert("ERROR: Boolean variable 'focusStats' is not defined as being true or false at (main):1:10")
+					console.log("(void)ERR: Boolean variable 'focusStats' is not defined as being true or false at (main):1:10")
 				}
 			}
-			else if (commandEntered == "{get=version}") {
-				alert("You are playing LabSim 2.7.0.");
+			else if (commandEntered == "get(version)") {
+				console.log("Aspen Alpha 1.7");
 			}
-			else if (commandEntered == "{get=credits}") {
+			else if (commandEntered == "get(credits)") {
 				alert("LabSim is an online laboratory simulator by Aeonic. It is written by Eshaan Bhargav Patel with small contributions by Pravar Gollamudi, Aaron D'Souza, and Brenden D'Souza.\nLabSim was made as a fork of Sandboxels (https://sandboxels.r74n.com) v1.4 by R74n (http://r74n.com/), and all of the subsequent coding from the persons mentioned above were modifications to Sandboxels.");
 			}
-			else if (commandEntered == "{get=stats}") {
+			else if (commandEntered == "get(statistics)") {
 				if (focusStats == false) {
 					allStats += "FOCUS: false\n";
 				}
@@ -174,13 +146,13 @@ var calcResult;
 				else {
 					allStats += "FOCUS: undefined\n"
 				}
-				alert(allStats);
+				console.log(allStats);
 			}
-			else if (commandEntered == "{get}") {
-				alert("ERROR: Undefined parameter, please specify it; at (main):1:4")
+			else if (commandEntered == "get()") {
+				console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
 			}
 			else if (commandEntered == "{print}") {
-				alert("ERROR: Item to be gotten left undefined at (main):1:4")
+				console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
 			}
 			else if (commandEntered.startsWith("{#mod:")) {
 				var modUrl = commandEntered.substring(5).trim();
@@ -212,10 +184,10 @@ var calcResult;
 								else if (a === 4) {
 										calcResult = calculateQuaternaryOperation(t, m, n, o, p);
 								}
-								alert(calcResult);
+								printVoid(calcResult);
 						}
 						else if (a < 0 || a > 8) {
-								alert("ERROR: Invalid operand, must be between 0 and 8; ERR @ 1:8");
+								printVoid("(void)ERR: Invalid operand, must be between 0 and 8; at (main)1:8");
 						}
 				}
 				else {
@@ -229,7 +201,7 @@ var calcResult;
 				}
 				else {
 						clearCmd();
-						focusStats = false;
+						/* Do nothing */
 						return false;
 				}
 			}
@@ -242,7 +214,7 @@ var calcResult;
 			document.getElementById("logobox").innerHTML=note;
 		}
 		function clearCmd() {
-			document.getElementById("commandBlock").innerHTML="{}";
+			document.getElementById("commandBlock").innerHTML="";
 		}
 		function calculateSingleTermOperation(operation, term) {
 				switch (operation) {
@@ -315,3 +287,36 @@ var calcResult;
 		}
 		// Get the input field
 		var inputk = document.getElementById("commandBlock");
+
+		// Execute a function when the user presses a key on the keyboard
+		inputk.addEventListener("keypress", function(event) {
+			// If the user presses the "Enter" key on the keyboard
+			if (event.key === "Enter") {
+				// Cancel the default action, if needed
+				event.preventDefault();
+				// Trigger the button element with a click
+				document.getElementById("doBtn").click();
+			}
+		});
+		var isExpanded = false;
+
+		function toggleExpand() {
+				isExpanded = !isExpanded;
+				var commandContainer = document.getElementById("commandContainer");
+				commandContainer.classList.toggle("cmdExpand", isExpanded);
+				var commandBlock = document.getElementById("commandBlock");
+				commandBlock.classList.toggle("cmdExpandBox", isExpanded);
+				var commandConsole = document.getElementById("cmdConsole");
+				commandConsole.classList.toggle("cmdConsole", isExpanded);
+		}
+	</script>
+	<div id='commandContainer'>
+		<span class="caret" onclick="toggleExpand();">&#9654;</span>
+		<span id='commandBlock' contenteditable>{}</span>
+		<button onclick='doCmd();' id='dobtn'>Do</button>
+		<div id='cmdConsole'>
+			<h4>Aspen Alpha 1.7 Console</h4>
+			<div id='voidConsole'>
+			</div>
+		</div>
+	</div>
