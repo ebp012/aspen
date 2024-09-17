@@ -3,7 +3,7 @@ var focusStats;
 var pauseStats;
 function doCmd() {
 	checkLabLang();
-	writeToConsole("Task succeded");
+	//console.log("Task succeded");
 	var settingStuffs = clearCmd();
 }
 function printVoid(text) {
