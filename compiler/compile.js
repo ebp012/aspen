@@ -16,75 +16,74 @@ function errVoid(text) {
 }
 function checkLabLang() { // the compiler for the Void programming language 
 	var commandTyped = document.getElementById("commandBlock").innerText;
-	var commandEntered = commandTyped.replace(/([^\\])\\/g, "$1");
-	// The select command
-	if (commandEntered == "select();") {
+  	var commandEntered = commandTyped.replace(/([^\\])\\/g, "$1");
+	var lines = commandEntered.split('\n');
+	for (var i = 0; i < lines.length; i++) {
+		var line = lines[i].trim();
+		if (commandEntered == "select();") {
+			
+		}
+		else if (commandEntered.startsWith('select("')) {
+			var elementName = commandEntered.substring(7, commandEntered.length - 3);
+		}
+		else if (commandEntered == "print();") {
+			console.log();
+		}
+		else if (commandEntered.startsWith('print("')) {
+			var alertText = commandEntered.substring(7, commandEntered.length - 3);
+			console.log(alertText);
+		}
+		else if (commandEntered.startsWith('#')) { // Invisible Comments
+			
+		}
+		else if (commandEntered.startsWith('note("')) { // Visible Comments
+			
+		}
+		else if (commandEntered == "get(aspen.version);") {
+			console.log("Aspen Alpha 1.7");
+		}
+		else if (commandEntered == "get();") {
+			console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
+		}
 		
-	}
-	else if (commandEntered.startsWith('select("')) {
-		var elementName = commandEntered.substring(7, commandEntered.length - 3);
-	}
-	else if (commandEntered == "print();") {
-		console.log();
-	}
-	else if (commandEntered.startsWith('print("')) {
-		var alertText = commandEntered.substring(7, commandEntered.length - 3);
-		console.log(alertText);
-	}
-	else if (commandEntered.startsWith('#')) { // Invisible Comments
-		
-	}
-	else if (commandEntered.startsWith('note("')) { // Visible Comments
-		
-	}
-	else if (commandEntered == "get(aspen.version);") {
-		console.log("Aspen Alpha 1.7");
-	}
-	else if (commandEntered == "get();") {
-		console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
-	}
+		else if (commandEntered.startsWith("calc('")) {
+			var calcParams = commandEntered.substring(7, commandEntered.length - 3).split(":");
+			if (calcParams.length >= 4 && calcParams.length <= 6) {
+					var a = parseInt(calcParams[0]);
+					var t = parseInt(calcParams[1]);
+					var m = parseFloat(calcParams[2]);
+					var n = parseFloat(calcParams[3]);
+					var o = parseFloat(calcParams[4]);
+					var p = parseFloat(calcParams[5]);
 	
-	else if (commandEntered.startsWith("calc('")) {
-		var calcParams = commandEntered.substring(7, commandEntered.length - 3).split(":");
-		if (calcParams.length >= 4 && calcParams.length <= 6) {
-				var a = parseInt(calcParams[0]);
-				var t = parseInt(calcParams[1]);
-				var m = parseFloat(calcParams[2]);
-				var n = parseFloat(calcParams[3]);
-				var o = parseFloat(calcParams[4]);
-				var p = parseFloat(calcParams[5]);
-
-				if (a >= 0 && a <= 4) {
-						if (a === 1 && (t === 7 || t === 8)) {
-								calcResult = calculateSingleTermOperation(t, m);
-						}
-						else if (a === 1 && t < 7) {
-								alert("Invalid calculation");
-						}
-						else if (a === 2) {
-								calcResult = calculateBinaryOperation(t, m, n);
-						}
-						else if (a === 3) {
-								calcResult = calculateTernaryOperation(t, m, n, o);
-						}
-						else if (a === 4) {
-								calcResult = calculateQuaternaryOperation(t, m, n, o, p);
-						}
-						printVoid(calcResult);
-				}
-				else if (a < 0 || a > 8) {
-						printVoid("(void)ERR: Invalid operand, must be between 0 and 8; at (main)1:8");
-				}
+					if (a >= 0 && a <= 4) {
+							if (a === 1 && (t === 7 || t === 8)) {
+									calcResult = calculateSingleTermOperation(t, m);
+							}
+							else if (a === 1 && t < 7) {
+									alert("Invalid calculation");
+							}
+							else if (a === 2) {
+									calcResult = calculateBinaryOperation(t, m, n);
+							}
+							else if (a === 3) {
+									calcResult = calculateTernaryOperation(t, m, n, o);
+							}
+							else if (a === 4) {
+									calcResult = calculateQuaternaryOperation(t, m, n, o, p);
+							}
+							printVoid(calcResult);
+					}
+					else if (a < 0 || a > 8) {
+							printVoid("(void)ERR: Invalid operand, must be between 0 and 8; at (main)1:8");
+					}
 		}
 		else {
-
+			
 		}
+	}
 }
 	else {
-		// Proceed with other conditions
-		if (commandEntered.startsWith("{select:")) {
-				return true;
-		}
 		else {
 				clearCmd();
 				focusStats = false;
