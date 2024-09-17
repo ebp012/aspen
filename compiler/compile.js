@@ -16,7 +16,8 @@ function errVoid(text) {
 }
 function checkLabLang() { // the compiler for the Void programming language 
 	var commandTyped = document.getElementById("commandBlock").innerText;
-  	var commandEntered = commandTyped.replace(/([^\\])\\/g, "$1");
+  	var commandProcessed = commandTyped.replace(/([^\\])\\/g, "$1")
+	var commandEntered = commandProcessed.replace(/[\t\n]/g, "");;
 	if (commandEntered == "select();") {
 		
 	}
