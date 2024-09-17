@@ -17,7 +17,7 @@ function errVoid(text) {
 function checkLabLang() { // the compiler for the Void programming language 
 	var commandTyped = document.getElementById("commandBlock").innerText;
   	var commandProcessed = commandTyped.replace(/([^\\])\\/g, "$1")
-	var commandEntered = commandProcessed.replace(/[\t\n]/g, "");;
+	var commandEntered = commandProcessed.replace(/[\t\n]/g, "");
 	if (commandEntered == "select();") {
 		
 	}
@@ -84,13 +84,7 @@ function checkLabLang() { // the compiler for the Void programming language
 		return false;
 	}
 }
-function writeToConsole(){
 
-}
-function addNote() {
-	var note = prompt("What note would you like to add?");
-	document.getElementById("logobox").innerHTML=note;
-}
 function clearCmd() {
 	document.getElementById("commandBlock").innerHTML="";
 }
