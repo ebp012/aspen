@@ -1,7 +1,6 @@
 var calcResult;
 var focusStats;
 var pauseStats;
-var allStats = "LABSIM CURRENT STATISTICS:\n";
 function doCmd() {
 	checkLabLang();
 	writeToConsole("Task succeded");
@@ -19,147 +18,34 @@ function checkLabLang() { // the compiler for the Void programming language
 	var commandTyped = document.getElementById("commandBlock").innerText;
 	var commandEntered = commandTyped.replace(/([^\\])\\/g, "$1");
 	// The select command
-	if (commandEntered == "select()") {
-		chooseElementPrompt()
-		focusGame();
+	if (commandEntered == "select();") {
+		
 	}
-	else if (commandEntered.startsWith('select(')) {
-		var elementName = commandEntered.substring(7, commandEntered.length - 1);
-		selectElement(elementName);
-		focusGame();
+	else if (commandEntered.startsWith('select("')) {
+		var elementName = commandEntered.substring(7, commandEntered.length - 3);
 	}
-	else if (commandEntered == "info()"){
-		currentElement = "lookup";
-	}
-	else if (commandEntered == 'select(&tool)') {
-		chooseToolPrompt();
-		focusGame();
-	}
-	else if (commandEntered.startsWith('select(tool, ')) {
-		var toolName = commandEntered.substring(13, commandEntered.length - 1);
-		selectElement(toolName);
-		focusGame();
-	}
-	else if (commandEntered == "select(&&element)") {
-		chooseElementPrompt();
-		focusGame();
-	}
-	else if (commandEntered == "select(null)") {
-		focusGame();
-	}
-	else if (commandEntered.startsWith("{definejs:")) {
-		var parts = commandEntered.match(/\$(\w+)=(.*?)\//)
-		if (parts && parts.length === 3) {
-				var variableName = parts[1];
-				var value = parts[2];
-				window[variableName] = value;
-		}
-	}
-	else if (commandEntered == "size(-)") {
-		mouseSize -= 2;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-		focusGame();
-	}
-	else if (commandEntered == "size(/)") {
-		mouseSize =1;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-		focusGame();
-	}
-	else if (commandEntered == "size(*)") {
-		mouseSize =150;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-		focusGame();
-	}
-	else if (commandEntered == "size(+)") {
-		mouseSize += 2;if (mouseSize < 1) { mouseSize = 1; };focusGame();
-		focusGame();
-	}
-	
-	else if (commandEntered == "print()") {
-		alert();
-		focusGame();
+	else if (commandEntered == "print();") {
+		console.log();
 	}
 	else if (commandEntered.startsWith('print("')) {
-		var alertText = commandEntered.substring(7, commandEnteredA.length - 2);
+		var alertText = commandEntered.substring(7, commandEntered.length - 3);
 		console.log(alertText);
-		focusGame();
 	}
-	else if (commandEntered.startsWith('#')) { // Comments
-		focusGame();
+	else if (commandEntered.startsWith('#')) { // Invisible Comments
+		
 	}
-	else if (commandEntered == "note()") {
-		addNote();
-		focusGame();
+	else if (commandEntered.startsWith('note("')) { // Visible Comments
+		
 	}
-	else if (commandEntered == "{view=full}") {
-		if (document.fullscreenElement) {
-			document.exitFullscreaen(body);
-		} else {
-			requestFullScreen(document.body);
-		}
-		focusStats = false;
-	}
-	else if (commandEntered == "{view=hide}") {
-		document.getElementById("canvasDiv").style.display="none";
-		focusStats = false;
-	}
-	else if (commandEntered == "{view=show}") {
-		document.getElementById("canvasDiv").style.display="block";
-		focusStats = false;
-	}
-	else if (commandEntered == "{view=focus}") {
-		focusGame();
-	}
-	else if (commandEntered == "{help}") {
-		window.open("http://dev.aeonic.me/void/wiki", "_blank");
-	}
-	else if (commandEntered == "{get=focus}") {
-		if (focusStats == false) {
-			console.log("Focus is set to: false");
-		}
-		else if (focusStats == true) {
-			console.log("Focus is set to: true");
-		}
-		else {
-			console.log("(void)ERR: Boolean variable 'focusStats' is not defined as being true or false at (main):1:10")
-		}
-	}
-	else if (commandEntered == "get(version)") {
+	else if (commandEntered == "get(aspen.version);") {
 		console.log("Aspen Alpha 1.7");
 	}
-	else if (commandEntered == "get(credits)") {
-		alert("LabSim is an online laboratory simulator by Aeonic. It is written by Eshaan Bhargav Patel with small contributions by Pravar Gollamudi, Aaron D'Souza, and Brenden D'Souza.\nLabSim was made as a fork of Sandboxels (https://sandboxels.r74n.com) v1.4 by R74n (http://r74n.com/), and all of the subsequent coding from the persons mentioned above were modifications to Sandboxels.");
-	}
-	else if (commandEntered == "get(statistics)") {
-		if (focusStats == false) {
-			allStats += "FOCUS: false\n";
-		}
-		else if (focusStats == true) {
-			allStats += "FOCUS: true\n";
-		}
-		else {
-			allStats += "FOCUS: undefined\n"
-		}
-		if (pauseStats == false) {
-			allStats += "PAUSED: false\n";
-		}
-		else if (pausedStats == true) {
-			allStats += "PAUSED: true\n";
-		}
-		else {
-			allStats += "FOCUS: undefined\n"
-		}
-		console.log(allStats);
-	}
-	else if (commandEntered == "get()") {
+	else if (commandEntered == "get();") {
 		console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
 	}
-	else if (commandEntered == "{print}") {
-		console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
-	}
-	else if (commandEntered.startsWith("{#mod:")) {
-		var modUrl = commandEntered.substring(5).trim();
-		importScript(modUrl);
-	}
-	else if (commandEntered.startsWith("{calc:")) {
-		var calcParams = commandEntered.substring(7, commandEntered.length - 1).split(":");
+	
+	else if (commandEntered.startsWith("calc('")) {
+		var calcParams = commandEntered.substring(7, commandEntered.length - 3).split(":");
 		if (calcParams.length >= 4 && calcParams.length <= 6) {
 				var a = parseInt(calcParams[0]);
 				var t = parseInt(calcParams[1]);
