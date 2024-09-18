@@ -5,6 +5,14 @@ function doCmd() {
 	checkLabLang();
 	//console.log("Task succeded");
 	var settingStuffs = clearCmd();
+	var commandBlockText = document.getElementById("commandBlock").innerText;
+	var commands = commandBlockText.split(/[\n;]+/); // Split by newlines and semicolons
+	for (var i = 0; i < commands.length; i++) {
+		var command = commands[i].trim(); // Remove leading/trailing spaces
+		if (command.length > 0) { // Avoid processing empty commands
+			checkLabLang(command);
+		}
+	}
 }
 function printVoid(text) {
 	// Print text
@@ -21,31 +29,31 @@ function checkLabLang() { // the compiler for the Void programming language
 	if (commandEntered == "select();") {
 		
 	}
-	else if (commandEntered.startsWith('select("') && commandEntered.endsWith('");')) {
-		var elementName = commandEntered.substring(7, commandEntered.length - 3);
+	else if (commandEntered.startsWith('select("') && commandEntered.endsWith('")')) {
+		var elementName = commandEntered.substring(7, commandEntered.length - 2);
 	}
-	else if (commandEntered == "print();") {
+	else if (commandEntered == "print()") {
 		console.log();
 	}
-	else if (commandEntered.startsWith('print("') && commandEntered.endsWith('");')) {
-		var alertText = commandEntered.substring(7, commandEntered.length - 3);
+	else if (commandEntered.startsWith('print("') && commandEntered.endsWith('")')) {
+		var alertText = commandEntered.substring(7, commandEntered.length - 2);
 		console.log(alertText);
 	}
 	else if (commandEntered.startsWith('#')) { // Invisible Comments
 		
 	}
-	else if (commandEntered.startsWith('note("') && commandEntered.endsWith('");')) { // Visible Comments
+	else if (commandEntered.startsWith('note("') && commandEntered.endsWith('")')) { // Visible Comments
 		
 	}
-	else if (commandEntered == "get(aspen.version);") {
+	else if (commandEntered == "get(aspen.version)") {
 		console.log("Aspen Alpha 1.7");
 	}
-	else if (commandEntered == "get();") {
+	else if (commandEntered == "get()") {
 		console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
 	}
 		
-	else if (commandEntered.startsWith("calc('") && commandEntered.endsWith('");')) {
-		var calcParams = commandEntered.substring(7, commandEntered.length - 3).split(":");
+	else if (commandEntered.startsWith("calc('") && commandEntered.endsWith('")')) {
+		var calcParams = commandEntered.substring(7, commandEntered.length - 2).split(":");
 		if (calcParams.length >= 4 && calcParams.length <= 6) {
 				var a = parseInt(calcParams[0]);
 				var t = parseInt(calcParams[1]);
