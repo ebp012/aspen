@@ -21,20 +21,20 @@ function checkLabLang() { // the compiler for the Void programming language
 	if (commandEntered == "select();") {
 		
 	}
-	else if (commandEntered.startsWith('select("')) {
+	else if (commandEntered.startsWith('select("') && commandEntered.endsWith('");')) {
 		var elementName = commandEntered.substring(7, commandEntered.length - 3);
 	}
 	else if (commandEntered == "print();") {
 		console.log();
 	}
-	else if (commandEntered.startsWith('print("')) {
+	else if (commandEntered.startsWith('print("') && commandEntered.endsWith('");')) {
 		var alertText = commandEntered.substring(7, commandEntered.length - 3);
 		console.log(alertText);
 	}
 	else if (commandEntered.startsWith('#')) { // Invisible Comments
 		
 	}
-	else if (commandEntered.startsWith('note("')) { // Visible Comments
+	else if (commandEntered.startsWith('note("') && commandEntered.endsWith('");')) { // Visible Comments
 		
 	}
 	else if (commandEntered == "get(aspen.version);") {
@@ -44,7 +44,7 @@ function checkLabLang() { // the compiler for the Void programming language
 		console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
 	}
 		
-	else if (commandEntered.startsWith("calc('")) {
+	else if (commandEntered.startsWith("calc('") && commandEntered.endsWith('");')) {
 		var calcParams = commandEntered.substring(7, commandEntered.length - 3).split(":");
 		if (calcParams.length >= 4 && calcParams.length <= 6) {
 				var a = parseInt(calcParams[0]);
