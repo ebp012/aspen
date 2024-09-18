@@ -26,7 +26,8 @@ function checkLabLang() { // the compiler for the Void programming language
 	var commandTyped = document.getElementById("commandBlock").innerText;
   	var commandProcessed = commandTyped.replace(/([^\\])\\/g, "$1")
 	var commandEntered = commandProcessed.replace(/[\t\n]/g, "");
-	if (commandEntered == "select();") {
+	
+	if (commandEntered == "select()") {
 		
 	}
 	else if (commandEntered.startsWith('select("') && commandEntered.endsWith('")')) {
