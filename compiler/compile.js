@@ -23,28 +23,32 @@ function errVoid(text) {
 	console.log(text);
 }
 function checkLabLang() { // the compiler for the Void programming language 
-	var commandTyped = document.getElementById("commandBlock").innerText;
+	var commandTyped = document.getElementById("commandBlock").innerText.split(";")[0].trim();
   	var commandProcessed = commandTyped.replace(/([^\\])\\/g, "$1")
 	var commandEntered = commandProcessed.replace(/[\t\n]/g, "");
 	
-	if (commandEntered == "select()") {
-		
-	}
-	else if (commandEntered.startsWith('select("') && commandEntered.endsWith('")')) {
-		var elementName = commandEntered.substring(7, commandEntered.length - 2);
-	}
-	else if (commandEntered == "print()") {
+	if (commandEntered == "print()") {
+		// Print function (no arguments)
 		console.log();
 	}
 	else if (commandEntered.startsWith('print("') && commandEntered.endsWith('")')) {
+		// Print function (string argument)
 		var alertText = commandEntered.substring(7, commandEntered.length - 2);
 		console.log(alertText);
 	}
-	else if (commandEntered.startsWith('#')) { // Invisible Comments
+	else if (commandEntered == "select()") {
+		// Select function (no arguments)
 		
 	}
-	else if (commandEntered.startsWith('note("') && commandEntered.endsWith('")')) { // Visible Comments
-		
+	else if (commandEntered.startsWith('select("') && commandEntered.endsWith('")')) {
+		// Select function (string argument)
+		var elementName = commandEntered.substring(7, commandEntered.length - 2);
+	}
+	else if (commandEntered.startsWith('#')) {
+		// Generic full-line comment		
+	}
+	else if (commandEntered.startsWith('note("') && commandEntered.endsWith('")')) {
+		// Alternative to print() that will print NO MATTER WHAT
 	}
 	else if (commandEntered == "get(aspen.version)") {
 		console.log("Aspen Alpha 1.7");
