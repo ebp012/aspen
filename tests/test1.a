@@ -1,0 +1,7 @@
+print("Hello*");
+note("World");
+
+# Output:
+# 
+# Hello
+# World
