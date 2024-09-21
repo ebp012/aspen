@@ -20,9 +20,9 @@ function doCmd() {
 }
 function printVoid(text) {
 	// Print text
-	console.log(text);
+	aspenConsole.innertext += "\n" + text;
 }
-function errVoid(text) {
+function errorVoid(text) {
 	// Error handling output
 	console.log(text);
 }
@@ -33,12 +33,12 @@ function checkLabLang() { // the compiler for the Void programming language
 	
 	if (commandEntered == "print()") {
 		// Print function (no arguments)
-		console.log();
+		printVoid();
 	}
 	else if (commandEntered.startsWith('print("') && commandEntered.endsWith('")')) {
 		// Print function (string argument)
 		var alertText = commandEntered.substring(7, commandEntered.length - 2);
-		aspenConsole += alertText;
+		printVoid(alertText);
 	}
 	else if (commandEntered == "select()") {
 		// Select function (no arguments)
@@ -54,13 +54,13 @@ function checkLabLang() { // the compiler for the Void programming language
 	else if (commandEntered.startsWith('note("') && commandEntered.endsWith('")')) {
 		// Alternative to print() that will print NO MATTER WHAT
 		var alertText = commandEntered.substring(7, commandEntered.length - 2);
-		aspenConsole += alertText;
+		printVoid(alertText);
 	}
 	else if (commandEntered == "get(aspen.version)") {
-		aspenConsole += "Aspen Alpha 1.7";
+		printVoid("Aspen Alpha 1.7");
 	}
 	else if (commandEntered == "get()") {
-		console.log("(void)ERR: Undefined parameter, please specify it; at (main):1:4")
+		errorVoid("(void)ERR: Undefined parameter, please specify it; at (main):1:4");
 	}
 		
 	else if (commandEntered.startsWith("calc('") && commandEntered.endsWith('")')) {
