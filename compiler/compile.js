@@ -20,7 +20,7 @@ function doCmd() {
 }
 function printVoid(text) {
 	// Print text
-	aspenConsole.innertext += "\n" + text;
+	aspenConsole.innerText += "\n" + text;
 }
 function errorVoid(text) {
 	// Error handling output
