@@ -40,14 +40,20 @@ function checkLabLang(commandEntered) {
 		eval(jsCode);  // Evaluate the generated JavaScript code
 	}
 
-	// Process the print function (e.g., print(a + " world");)
-	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
-	var expression = commandEntered.substring(6, commandEntered.length - 1);
-	jsCode += 'aspenConsole.innerText += "\\n" + ' + expression + ';';
-	eval(jsCode);  // Evaluate the generated JavaScript code
+	// Comments
+	else if (commandEntered.startsWith("#")) {
+		// Do nothing
 	}
 
+	// Process the print function (e.g., print(a + " world");)
 	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
+		var expression = commandEntered.substring(6, commandEntered.length - 1);
+		jsCode += 'aspenConsole.innerText += "\\n" + ' + expression + ';';
+		eval(jsCode);  // Evaluate the generated JavaScript code
+	}
+
+	// Note function
+	else if (commandEntered.startsWith("note(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(6, commandEntered.length - 1);
 		jsCode += 'aspenConsole.innerText += "\\n" + ' + expression + ';';
 		eval(jsCode);  // Evaluate the generated JavaScript code
