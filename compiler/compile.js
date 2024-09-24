@@ -6,6 +6,7 @@ function clearConsole() {
 	aspenConsole.innerText = "";
 }
 function doCmd() {
+	checkLabLang();
 	//console.log("Task succeded");
 	var settingStuffs = clearCmd();
 	var commandBlockText = document.getElementById("commandBlock").innerText;
