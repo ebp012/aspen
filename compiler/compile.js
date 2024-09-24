@@ -1,6 +1,6 @@
 var calcResult;
 var aspenConsole = document.getElementById("aspenConsole");
-var jsCode;
+var jsCode = 'document.getElementById("aspenConsole");';
 
 function clearConsole() {
 	aspenConsole.innerText = "";
