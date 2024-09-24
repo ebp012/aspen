@@ -3,7 +3,7 @@ var aspenConsole = document.getElementById("aspenConsole");
 var jsCode;
 
 function clearConsole() {
-	aspenConsole.innerText = "document.getElementById("aspenConsole");";
+	aspenConsole.innerText = "";
 }
 
 function doCmd() {
