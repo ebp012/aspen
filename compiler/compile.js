@@ -1,4 +1,67 @@
+// var calcResult;
 var calcResult;
+var aspenConsole = document.getElementById("aspenConsole");
+
+function clearConsole() {
+    aspenConsole.innerText = "";
+}
+
+function doCmd() {
+    // Get the command block content
+    var commandBlockText = document.getElementById("commandBlock").innerText;
+    // Split commands by semicolons
+    var commands = commandBlockText.split(/[\n;]+/);
+    
+    // Process each command
+    for (var i = 0; i < commands.length; i++) {
+        var command = commands[i].trim();
+        if (command.length > 0) {
+            checkLabLang(command);  // Interpret each command
+        }
+    }
+}
+
+function printVoid(text) {
+    // Print text to the console
+    aspenConsole.innerText += "\n" + text;
+}
+
+function errorVoid(text) {
+    // Log errors
+    console.log(text);
+}
+
+function checkLabLang(commandEntered) {
+    // Process variable declarations and assignments (e.g., $a = "hello";)
+    if (commandEntered.startsWith("$")) {
+        // Remove the $ and treat it as a variable declaration
+        var assignment = commandEntered.substring(1).replace("=", " = ");
+        var jsCode = "var " + assignment;
+        eval(jsCode);  // Evaluate the generated JavaScript code
+    }
+
+    // Process the print function (e.g., print(a + " world");)
+    else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
+        var expression = commandEntered.substring(6, commandEntered.length - 1);
+        var jsCode = 'aspenConsole.innerText += "\\n" + ' + expression + ';';
+        eval(jsCode);  // Evaluate the generated JavaScript code
+    }
+
+    // Handle other commands or errors
+    else {
+        errorVoid("(void)ERR: Command not recognized; at (main):1:1");
+    }
+}
+
+function clearCmd() {
+    document.getElementById("commandBlock").innerHTML = "";
+}
+
+// Example usage when "Do" button is clicked
+document.getElementById("dobtn").addEventListener("click", doCmd);
+
+
+/*
 var focusStats;
 var pauseStats;
 var aspenConsole = document.getElementById("aspenConsole");
@@ -183,3 +246,4 @@ function toggleExpand() {
 		var commandConsole = document.getElementById("cmdConsole");
 		commandConsole.classList.toggle("cmdConsole", isExpanded);
 }
+*/
