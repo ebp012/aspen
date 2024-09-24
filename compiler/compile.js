@@ -10,13 +10,6 @@ function doCmd() {
 	//console.log("Task succeded");
 	var settingStuffs = clearCmd();
 	var commandBlockText = document.getElementById("commandBlock").innerText;
-	var commands = commandBlockText.split(/[\n;]+/); // Split by newlines and semicolons
-	for (var i = 0; i < commands.length; i++) {
-		var command = commands[i].trim(); // Remove leading/trailing spaces
-		if (command.length > 0) { // Avoid processing empty commands
-			checkLabLang(command);
-		}
-	}
 }
 function printVoid(text) {
 	// Print text
