@@ -41,7 +41,8 @@ function checkLabLang(commandEntered) {
 		// Store the variable in the variableStore object
 		variableStore[varName] = eval(varValue);  // Safely store evaluated value
 		
-	} else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
+	}
+	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
 		// Extract the expression inside print()
 		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
 		
@@ -56,13 +57,20 @@ function checkLabLang(commandEntered) {
 	}
 	else if (commandEntered.startsWith("note(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(6, commandEntered.length - 1);
-		var jsCode = 'aspenConsole.innerText += "\\n" + ' + expression + ';';
+		var jsCode = 'aspenConsole.innerText += ' + expression + ';';
 		eval(jsCode);  // Evaluate the generated JavaScript code
 	}
-	
+	// Handle comments
+	else if (commandEntered.startsWith("#")) {
+		// Do absolutely nothing
+		// Comments just explain code anyway
+	}	
 	// Handle other commands or errors
 	else {
 		errorVoid("(void)ERR: Command not recognized; at (main):1:1");
+		var expression = commandEntered.substring(0, commandEntered.length - 1);
+		var jsCode += expression;
+		eval(jsCode);  // Evaluate the generated JavaScript code
 	}
 }
 
