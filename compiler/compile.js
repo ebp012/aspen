@@ -83,6 +83,3 @@ function evalExpression(expression) {
 function clearCmd() {
 	document.getElementById("commandBlock").innerHTML = "";
 }
-
-// Example usage when "Do" button is clicked
-document.getElementById("dobtn").addEventListener("click", doCmd);
