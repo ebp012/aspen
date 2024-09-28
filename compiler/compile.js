@@ -21,16 +21,6 @@ function doCmd() {
 	}
 }
 
-function printVoid(text) {
-	// Print text to the console
-	aspenConsole.innerText += "\n" + text;
-}
-
-function errorVoid(text) {
-	// Log errors
-	console.log(text);
-}
-
 function checkLabLang(commandEntered) {
 	// Handle variable declarations (e.g., $a = "hello";)
 	if (commandEntered.startsWith("$")) {
@@ -42,7 +32,7 @@ function checkLabLang(commandEntered) {
 		variableStore[varName] = eval(varValue);  // Safely store the evaluated value
 	}
 	
-	// Handle the print() function (e.g., print("hello");)
+	// The print routine, which prints text with a newline
 	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
 		// Extract the expression inside print()
 		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
@@ -51,14 +41,21 @@ function checkLabLang(commandEntered) {
 		var evaluatedExpression = evalExpression(expression);
 		
 		// Print the evaluated result
-		printVoid(evaluatedExpression);
+		aspen.print(evaluatedExpression);
 	}
 	
-	// Handle the note() function similarly to print()
+	// The note routine, which prints text without a newline
 	else if (commandEntered.startsWith("note(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
 		var evaluatedExpression = evalExpression(expression);
-		printVoid(evaluatedExpression);
+		aspen.note(evaluatedExpression);
+	}
+
+	// The warn routine, which for now prints text in yellow, but will eventually just make a log file of errors
+	else if (commandEntered.startsWith("warn(") && commandEntered.endsWith(")")) {
+		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
+		var evaluatedExpression = evalExpression(expression);
+		aspen.warn(evaluatedExpression);
 	}
 	
 	// Handle comments (e.g., # This is a comment)
