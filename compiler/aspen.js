@@ -6,7 +6,7 @@ var aspen = {
     aspenConsole.innerText += text;
   },
   warn: function (text) {
-    aspenConsole.innerHTML += "<br/><p style='color: gold;'>" + text + "</p><br/>;
+    aspenConsole.innerHTML += "<br/><p style='color: gold;'>" + text + "</p><br/>";
   },
   clear: function (text) {
     aspenConsole.innerText = "";
