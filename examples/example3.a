@@ -1,0 +1,8 @@
+# This program counts down from 20 to 0 using the repeat loop.
+
+$a = 20;
+
+repeat(21){
+	print(a),
+	a = a=a-1,
+}
