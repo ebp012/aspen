@@ -1,0 +1,7 @@
+# This program will demonstrate variables.;
+
+$a = 1;
+
+print(a + 5);
+
+# Should output 6
