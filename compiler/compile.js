@@ -87,7 +87,7 @@ function checkLabLang(commandEntered) {
 		aspen.clear();
 	}
 
-	// Repeat loops
+	// Repeat loops (finite)
 	else if (commandEntered.startsWith("repeat(") && commandEntered.includes("){")) {
 		// Extract number of repetitions (inside the parentheses)
 		var openParen = commandEntered.indexOf("(");
@@ -101,6 +101,19 @@ function checkLabLang(commandEntered) {
 		
 		// Execute the code block the specified number of times
 		for (var i = 0; i < repetitions; i++) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		}
+	}
+
+	// Repeat loops (infinite)
+	else if (commandEntered.startsWith("repeat") && commandEntered.includes("{")) {
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Execute the code block the specified number of times
+		while (true) {
 			checkLabLang(codeBlock);  // Evaluate the block for each iteration
 		}
 	}
