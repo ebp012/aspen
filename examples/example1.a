@@ -1,3 +1,5 @@
-# This example will print "Hello, world!".
+# This example will print "Hello, world!".;
 
-print("Hello, world!")
+print("Hello, world!");
+
+# Output: Hello, world!
