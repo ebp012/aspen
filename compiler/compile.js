@@ -87,29 +87,24 @@ function checkLabLang(commandEntered) {
 		aspen.clear();
 	}
 
-	// While loops
-	else if (commandEntered.startsWith("while(") && commandEntered.endsWith(") {")) {
-		// Extract the condition
-		var condition = commandEntered.substring(6, commandEntered.length - 3).trim();
-		var loopCommands = [];
-		var currentIndex = commandIndex + 1;
+	// Repeat loops
+	else if (commandEntered.startsWith("repeat(") && commandEntered.includes("){")) {
+		// Extract number of repetitions (inside the parentheses)
+		var openParen = commandEntered.indexOf("(");
+		var closeParen = commandEntered.indexOf(")");
+		var repetitions = evalExpression(commandEntered.substring(openParen + 1, closeParen).trim());
 		
-		// Collect the loop body until the closing brace '}'
-		while (commands[currentIndex].trim() !== '}') {
-			loopCommands.push(commands[currentIndex].trim());
-			currentIndex++;
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Execute the code block the specified number of times
+		for (var i = 0; i < repetitions; i++) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
 		}
-		
-		// Execute the loop as long as the condition holds true
-		while (evalExpression(condition)) {
-			for (var i = 0; i < loopCommands.length; i++) {
-				checkLabLang(loopCommands[i]);
-			}
-		}
-		
-		// Skip over the loop body in the main command processing
-		commandIndex = currentIndex;
 	}
+
 		
 	// Comments
 	else if (commandEntered.startsWith("#")) {
@@ -118,7 +113,7 @@ function checkLabLang(commandEntered) {
 		
 	// Handle other unrecognized commands
 	else {
-		errorVoid("(void)ERR: Command not recognized; at (main):1:1");
+		aspen.warn("(void)ERR: Command not recognized; at (main):1:1");
 	}
 }
 
