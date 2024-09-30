@@ -1,8 +1,6 @@
-# This program counts down from 20 to 0 using the repeat loop.
+# This program counts up to 20 using the repeat loop.
 
-$a = 20;
-
-repeat(21){
-	print(a),
-	a = a=a-1,
-}
+$a = 0;
+note("Sample program to count up to 20: \n");
+repeat(20){print(a=a+1)};
+print("Done");
