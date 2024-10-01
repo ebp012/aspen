@@ -89,19 +89,32 @@ function checkLabLang(commandEntered) {
 
 	// Repeat loops (finite)
 	else if (commandEntered.startsWith("repeat(") && commandEntered.includes("){")) {
-		// Extract number of repetitions (inside the parentheses)
-		var openParen = commandEntered.indexOf("(");
-		var closeParen = commandEntered.indexOf(")");
-		var repetitions = evalExpression(commandEntered.substring(openParen + 1, closeParen).trim());
-		
-		// Extract the block of code (inside the curly braces)
-		var blockStart = commandEntered.indexOf("{");
-		var blockEnd = commandEntered.lastIndexOf("}");
-		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
-		
-		// Execute the code block the specified number of times
-		for (var i = 0; i < repetitions; i++) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		var subcommands = commandEntered.split(/(?:\n[ \t]|,)+/);
+	
+		// Process each sub-command
+		for (var i = 0; i < subcommands.length; i++) {
+			var subcommand = subcommands[i].trim();
+			if (subcommand.length > 0) {
+				// Extract number of repetitions (inside the parentheses)
+				var openParen = commandEntered.indexOf("(");
+				var closeParen = commandEntered.indexOf(")");
+				var repetitions = evalExpression(commandEntered.substring(openParen + 1, closeParen).trim());
+				
+				if (repetitions < 0 || repetitions % 1 != 0) {
+					aspen.warn("The repeat loop repeats an invalid number of times. The number of repeats must be a whole number.");
+				}
+				else {
+					// Extract the block of code (inside the curly braces)
+					var blockStart = commandEntered.indexOf("{");
+					var blockEnd = commandEntered.lastIndexOf("}");
+					var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+					
+					// Execute the code block the specified number of times
+					for (var j = 0; j < repetitions; j++) {
+						checkLabLang(codeBlock);  // Evaluate the block for each iteration
+					}
+				}
+			}
 		}
 	}
 
