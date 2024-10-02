@@ -158,21 +158,31 @@ function checkLabLang(commandEntered) {
 	}
 }
 
-function evalExpression(expression) { // Evaluate variables
+function evalExpression(expression) {
+	// Check if the expression is a string literal
+	if (/^["'].*["']$/.test(expression)) {
+		// Return the expression as is if it's already a string
+		return expression;
+	}
+
 	// Replace variables with their values from variableStore, if they exist
 	return eval(expression.replace(/\b\w+\b/g, function(match) {
-		// If it's a variable in variableStore, replace it with the stored value
 		return variableStore.hasOwnProperty(match) ? `variableStore['${match}']` : match;
 	}));
 }
-function evalExpressionC(expression) { // Evaluate constants
+
+function evalExpressionC(expression) {
+	// Check if the expression is a string literal
+	if (/^["'].*["']$/.test(expression)) {
+		// Return the expression as is if it's already a string
+		return expression;
+	}
+
 	// Replace constants with their values from constantStore, if they exist
 	return eval(expression.replace(/\b\w+\b/g, function(match) {
-		// If it's a constant in constantStore, replace it with the stored value
 		return constantStore.hasOwnProperty(match) ? `constantStore['${match}']` : match;
 	}));
 }
-
 function clearCmd() {
 	document.getElementById("commandBlock").innerHTML = "";
 }
