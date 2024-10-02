@@ -15,11 +15,12 @@ function uploadAspen() {
 		if (uploadTxt !== undefined) {
 			console.log(uploadTxt); // Put debug info in console
 			document.getElementById("commandBlock").innerHTML = uploadTxt; // Retrieve it
-		} else {
+		}
+		else {
 			console.log("File upload failed");
 		}
 	};
-
+	
 	// Read the file as text
 	reader.readAsText(input.files[0]);
 }
