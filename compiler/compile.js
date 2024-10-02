@@ -1,7 +1,6 @@
 var calcResult;
 var aspenConsole = document.getElementById("aspenConsole");
 var variableStore = {};
-var constantStore = {};
 
 function clearConsole() {
 	aspenConsole.innerText = "";
@@ -31,44 +30,32 @@ function checkLabLang(commandEntered) {
 		variableStore[varName] = eval(varValue);
 	}
 	
-	// Constants
-	else if (commandEntered.startsWith("@")) {
-		var assignment = commandEntered.substring(1).split("=");
-		var constName = assignment[0].trim();
-		var constValue = assignment[1].trim();		
-		constantStore[constName] = eval(constValue);
-	}
-	
 	// Print routine
 	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
-		var constEvaluatedExpression = evalExpressionC(expression);
-		var varEvaluatedExpression = evalExpression(constEvaluatedExpression);
-		aspen.print(varEvaluatedExpression);
+		var evaluatedExpression = evalExpression(expression);
+		aspen.print(evaluatedExpression);
 	}
 	
 	// Note routine
 	else if (commandEntered.startsWith("note(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
-		var constEvaluatedExpression = evalExpressionC(expression);
-		var varEvaluatedExpression = evalExpression(constEvaluatedExpression);
-		aspen.note(varEvaluatedExpression);
+		var evaluatedExpression = evalExpression(expression);
+		aspen.note(evaluatedExpression);
 	}
 
 	// Warn routine, which for now prints text in yellow, but will eventually just make a log file of errors
 	else if (commandEntered.startsWith("warn(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
-		var constEvaluatedExpression = evalExpressionC(expression);
-		var varEvaluatedExpression = evalExpression(constEvaluatedExpression);
-		aspen.warn(varEvaluatedExpression);
+		var evaluatedExpression = evalExpression(expression);
+		aspen.warn(evaluatedExpression);
 	}
 
 	// Sleep routine, pause execution for expression number of seconds
 	else if (commandEntered.startsWith("sleep(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
-		var constEvaluatedExpression = evalExpressionC(expression);
-		var varEvaluatedExpression = evalExpression(constEvaluatedExpression);
-		aspen.sleep(varEvaluatedExpression);
+		var evaluatedExpression = evalExpression(expression);
+		aspen.sleep(evaluatedExpression);
 	}
 
 	// Time routine, continuously print time
@@ -84,17 +71,15 @@ function checkLabLang(commandEntered) {
 	// Color routine, change color of text in the console to any HEX color
 	else if (commandEntered.startsWith("color(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
-		var constEvaluatedExpression = evalExpressionC(expression);
-		var varEvaluatedExpression = evalExpression(constEvaluatedExpression);
-		aspen.color(varEvaluatedExpression);
+		var evaluatedExpression = evalExpression(expression);
+		aspen.color(evaluatedExpression);
 	}
 
 	// Bgcolor routine, change background color of text in the console to any HEX color
 	else if (commandEntered.startsWith("bgcolor(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
-		var constEvaluatedExpression = evalExpressionC(expression);
-		var varEvaluatedExpression = evalExpression(constEvaluatedExpression);
-		aspen.bgcolor(varEvaluatedExpression);
+		var evaluatedExpression = evalExpression(expression);
+		aspen.bgcolor(evaluatedExpression);
 	}
 
 	// Clear routine, clear the entire console
@@ -159,30 +144,13 @@ function checkLabLang(commandEntered) {
 }
 
 function evalExpression(expression) {
-	// Check if the expression is a string literal
-	if (/^["'].*["']$/.test(expression)) {
-		// Return the expression as is if it's already a string
-		return expression;
-	}
-
 	// Replace variables with their values from variableStore, if they exist
 	return eval(expression.replace(/\b\w+\b/g, function(match) {
+		// If it's a variable in variableStore, replace it with the stored value
 		return variableStore.hasOwnProperty(match) ? `variableStore['${match}']` : match;
 	}));
 }
 
-function evalExpressionC(expression) {
-	// Check if the expression is a string literal
-	if (/^["'].*["']$/.test(expression)) {
-		// Return the expression as is if it's already a string
-		return expression;
-	}
-
-	// Replace constants with their values from constantStore, if they exist
-	return eval(expression.replace(/\b\w+\b/g, function(match) {
-		return constantStore.hasOwnProperty(match) ? `constantStore['${match}']` : match;
-	}));
-}
 function clearCmd() {
 	document.getElementById("commandBlock").innerHTML = "";
 }
