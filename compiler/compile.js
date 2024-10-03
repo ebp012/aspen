@@ -168,18 +168,24 @@ function checkLabLang(commandEntered) {
 	else if (commandEntered.startsWith("for") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
 		var openParen = commandEntered.indexOf("(");
 		var closeParen = commandEntered.indexOf(")");
-		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
 		
-		// Extract the block of code (inside the curly braces)
+		// Extract the loop parameters (initialization, condition, and update)
+		var loopParams = commandEntered.substring(openParen + 1, closeParen).split(";");
+		var initialization = loopParams[0].trim();
+		var condition = loopParams[1].trim();
+		var update = loopParams[2].trim();
+		
+		// Extract the block of code
 		var blockStart = commandEntered.indexOf("{");
 		var blockEnd = commandEntered.lastIndexOf("}");
 		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
 		
-		// Define everything for the condition
-		for (evalExpression(condition)) {
+		// Execute the loop
+		for (evalExpression(initialization); evalExpression(condition); evalExpression(update)) {
 			checkLabLang(codeBlock);  // Evaluate the block for each iteration
 		}
 	}
+
 			
 	// Comments
 	else if (commandEntered.startsWith("#")) {
