@@ -130,7 +130,57 @@ function checkLabLang(commandEntered) {
 		}
 	}
 
+	// While loops
+	else if (commandEntered.startsWith("while") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
+		var openParen = commandEntered.indexOf("(");
+		var closeParen = commandEntered.indexOf(")");
+		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
 		
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Execute the block of code while the condition is true
+		while (evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		}
+	}
+
+	// Until loops
+	else if (commandEntered.startsWith("until") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
+		var openParen = commandEntered.indexOf("(");
+		var closeParen = commandEntered.indexOf(")");
+		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
+		
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Execute the block of code until the condition becomes true
+		while (!evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		}
+	}
+
+	// For loops
+	else if (commandEntered.startsWith("for") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
+		var openParen = commandEntered.indexOf("(");
+		var closeParen = commandEntered.indexOf(")");
+		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
+		
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Define everything for the condition
+		for (evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		}
+	}
+			
 	// Comments
 	else if (commandEntered.startsWith("#")) {
 		// Do nothing (comments are ignored)
@@ -140,6 +190,7 @@ function checkLabLang(commandEntered) {
 	else {
 		aspen.warn("(void)ERR: Command not recognized; at (main):1:1");
 	}
+	
 }
 
 function evalExpression(expression) {
