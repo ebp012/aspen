@@ -88,9 +88,8 @@ function checkLabLang(commandEntered) {
 	}
 
 	// Repeat loops (finite)
-	else if (commandEntered.startsWith("repeat(") && commandEntered.includes("){")) {
+	else if (commandEntered.startsWith("repeat") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
 		var subcommands = commandEntered.split(/(?:\n[ \t]|,)+/);
-	
 		// Process each sub-command
 		for (var i = 0; i < subcommands.length; i++) {
 			var subcommand = subcommands[i].trim();
