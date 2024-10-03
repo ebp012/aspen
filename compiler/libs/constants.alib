@@ -1,0 +1,19 @@
+# The constants that will remain unchanged and unchangeable in Aspen;
+
+# pi;
+@pi = 3.14159265358979323846264338; # Rounded to 27 digits;
+@pi3 = 3.14; # Rounded to 3 digits;
+@pi6 = 3.14159; # Rounded to 6 digits;
+
+# tau;
+@tau = 6.28318530717958647692528677; # Rounded up to 27 digits;
+@tau3 = 6.28; # Rounded to 3 digits;
+@tau6 = 6.28319 # Rounded up to 6 digits;
+
+# c (the speed of light);
+@splight = 299792458;
+
+# e;
+@euler = 2.71828182845904523536028747; # Rounded to 27 digits;
+@euler3 = 2.72; # Rounded up to 3 digits;
+@euler6 = 2.71828; # Rounded to 6 digits;
