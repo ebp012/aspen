@@ -170,7 +170,10 @@ function checkLabLang(commandEntered) {
 		var closeParen = commandEntered.indexOf(")");
 		
 		// Extract the loop parameters (initialization, condition, and update)
-		var loopParams = commandEntered.substring(openParen + 1, closeParen).split(";");
+		var loopParams = commandEntered.substring(openParen + 1, closeParen)
+			.replace(/,/g, ";")  // Replace commas with semicolons
+			.split(";");
+			      
 		var initialization = loopParams[0].trim();
 		var condition = loopParams[1].trim();
 		var update = loopParams[2].trim();
@@ -186,6 +189,52 @@ function checkLabLang(commandEntered) {
 		}
 	}
 
+	// Conditionals (if/or/else)
+	else if (commandEntered.startsWith("if") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
+		var openParen = commandEntered.indexOf("(");
+		var closeParen = commandEntered.indexOf(")");
+		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
+		
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Execute the block of code until the condition becomes true
+		if (!evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		}
+	}
+	else if (commandEntered.startsWith("or") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
+		var openParen = commandEntered.indexOf("(");
+		var closeParen = commandEntered.indexOf(")");
+		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
+		
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Execute the block of code until the condition becomes true
+		if (!evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		}
+	}
+	else if (commandEntered.startsWith("else") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
+		var openParen = commandEntered.indexOf("(");
+		var closeParen = commandEntered.indexOf(")");
+		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
+		
+		// Extract the block of code (inside the curly braces)
+		var blockStart = commandEntered.indexOf("{");
+		var blockEnd = commandEntered.lastIndexOf("}");
+		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
+		
+		// Execute the block of code until the condition becomes true
+		if (!evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		}
+	}
 			
 	// Comments
 	else if (commandEntered.startsWith("#")) {
