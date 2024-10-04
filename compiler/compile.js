@@ -248,12 +248,25 @@ function checkLabLang(commandEntered) {
 	
 }
 
-function evalExpression(expression) {
+/*function evalExpression(expression) {
 	// Replace variables with their values from variableStore, if they exist
 	return eval(expression.replace(/\b\w+\b/g, function(match) {
 		// If it's a variable in variableStore, replace it with the stored value
 		return variableStore.hasOwnProperty(match) ? `variableStore['${match}']` : match;
 	}));
+}*/
+
+function evalExpression(expression) {
+	// Replace variables with their values from variableStore, if they exist
+	expression = expression.replace(/\b\w+\b/g, function(match) {
+		return variableStore.hasOwnProperty(match) ? `variableStore['${match}']` : match;
+	});
+
+	// Handle the tilde (~) as a NOR operator
+	// This regular expression looks for two operands (A ~ B) and replaces with !(A || B)
+	expression = expression.replace(/(\w+)\s*~\s*(\w+)/g, '!($1 || $2)');
+
+	return eval(expression);
 }
 
 function clearCmd() {
