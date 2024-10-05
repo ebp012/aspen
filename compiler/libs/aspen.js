@@ -12,6 +12,10 @@ var aspen = {
 		warn: function (text) {
 			aspenConsole.innerHTML += "<p style='color: gold;'>" + text + "</p><br/>";
 		},
+		// Warn users
+		log: function (text) {
+			aspenConsole.innerHTML += "<p style='color: gold;'>" + text + "</p><br/>";
+		},
 	
 	// Basic Functions
 		// Sleep for a specified amount of seconds
