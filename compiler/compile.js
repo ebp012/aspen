@@ -22,7 +22,7 @@ function doCmd() {
 }
 
 function checkLabLang(commandPreEnter) {
-	var command = commandPreEnter
+	var commandEntered = commandPreEnter
 		.replace(/^/g, "^^") // Make ^ the exponentiation operator
 		.replace(/`/g, "clear();"); // Make the backtick a shorthand for clearing the screen
 	// Variables
