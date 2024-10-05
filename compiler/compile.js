@@ -164,32 +164,7 @@ function checkLabLang(commandEntered) {
 		}
 	}
 
-	// For loops
-	else if (commandEntered.startsWith("for") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
-		var openParen = commandEntered.indexOf("(");
-		var closeParen = commandEntered.indexOf(")");
-		
-		// Extract the loop parameters (initialization, condition, and update)
-		var loopParams = commandEntered.substring(openParen + 1, closeParen)
-			.replace(/,/g, ";")  // Replace commas with semicolons
-			.split(";");
-			      
-		var initialization = loopParams[0].trim();
-		var condition = loopParams[1].trim();
-		var update = loopParams[2].trim();
-		
-		// Extract the block of code
-		var blockStart = commandEntered.indexOf("{");
-		var blockEnd = commandEntered.lastIndexOf("}");
-		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
-		
-		// Execute the loop
-		for (evalExpression(initialization); evalExpression(condition); evalExpression(update)) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
-		}
-	}
-
-	// Conditionals (if/or/else)
+	// Conditionals (if/elif/else)
 	else if (commandEntered.startsWith("if") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
 		var openParen = commandEntered.indexOf("(");
 		var closeParen = commandEntered.indexOf(")");
@@ -200,12 +175,12 @@ function checkLabLang(commandEntered) {
 		var blockEnd = commandEntered.lastIndexOf("}");
 		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
 		
-		// Execute the block of code until the condition becomes true
-		if (!evalExpression(condition)) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		// Execute the block of code if the condition is true
+		if (evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block
 		}
 	}
-	else if (commandEntered.startsWith("or") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
+	else if (commandEntered.startsWith("elif") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
 		var openParen = commandEntered.indexOf("(");
 		var closeParen = commandEntered.indexOf(")");
 		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
@@ -215,26 +190,26 @@ function checkLabLang(commandEntered) {
 		var blockEnd = commandEntered.lastIndexOf("}");
 		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
 		
-		// Execute the block of code until the condition becomes true
-		if (!evalExpression(condition)) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		// Check if the previous condition was false (assumed tracked elsewhere)
+		// Execute elif block only if condition is true and the previous if/elif was false
+		if (!previousConditionMet && evalExpression(condition)) {
+			checkLabLang(codeBlock);  // Evaluate the block
+			previousConditionMet = true;  // Mark this branch as executed
 		}
 	}
-	else if (commandEntered.startsWith("else") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
-		var openParen = commandEntered.indexOf("(");
-		var closeParen = commandEntered.indexOf(")");
-		var condition = commandEntered.substring(openParen + 1, closeParen).trim();
-		
+	
+	else if (commandEntered.startsWith("else") && commandEntered.includes("{")) {
 		// Extract the block of code (inside the curly braces)
 		var blockStart = commandEntered.indexOf("{");
 		var blockEnd = commandEntered.lastIndexOf("}");
 		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
 		
-		// Execute the block of code until the condition becomes true
-		if (!evalExpression(condition)) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+		// Execute the else block only if all previous conditions were false
+		if (!previousConditionMet) {
+			checkLabLang(codeBlock);  // Evaluate the block
 		}
 	}
+
 			
 	// Comments
 	else if (commandEntered.startsWith("#")) {
