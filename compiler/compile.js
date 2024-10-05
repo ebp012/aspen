@@ -21,7 +21,10 @@ function doCmd() {
 	}
 }
 
-function checkLabLang(commandEntered) {
+function checkLabLang(commandPreEnter) {
+	var command = commandPreEnter
+		.replace(/^/g, "^^") // Make ^ the exponentiation operator
+		.replace(/`/g, "clear();"); // Make the backtick a shorthand for clearing the screen
 	// Variables
 	if (commandEntered.startsWith("$")) {
 		var assignment = commandEntered.substring(1).split("=");
@@ -31,8 +34,8 @@ function checkLabLang(commandEntered) {
 	}
 	
 	// Print routine
-	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
-		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
+	else if (commandEntered.startsWith("print") && commandEntered.endsWith(")")) {
+		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
 		var evaluatedExpression = evalExpression(expression);
 		aspen.print(evaluatedExpression);
 	}
@@ -46,6 +49,13 @@ function checkLabLang(commandEntered) {
 
 	// Warn routine, which for now prints text in yellow, but will eventually just make a log file of errors
 	else if (commandEntered.startsWith("warn(") && commandEntered.endsWith(")")) {
+		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
+		var evaluatedExpression = evalExpression(expression);
+		aspen.warn(evaluatedExpression);
+	}
+
+	// Log routine, logs to console rather than to GUI
+	else if (commandEntered.startsWith("log(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
 		var evaluatedExpression = evalExpression(expression);
 		aspen.warn(evaluatedExpression);
