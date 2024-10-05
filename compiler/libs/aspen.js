@@ -14,7 +14,7 @@ var aspen = {
 		},
 		// Warn users
 		log: function (text) {
-			aspenConsole.innerHTML += "<p style='color: gold;'>" + text + "</p><br/>";
+			console.log(text);
 		},
 	
 	// Basic Functions
