@@ -21,8 +21,8 @@ function doCmd() {
 	}
 }
 
-function checkLabLang(commandPreEnter) {
-	var commandEntered = commandPreEnter.replace(/^/g, "^^"); // Make ^ the exponentiation operator.
+function checkLabLang(commandEntered) {
+	commandEntered = commandEntered.replace(/^/g, "^^"); // Make ^ the exponentiation operator.
 	// Variables
 	if (commandEntered.startsWith("$")) {
 		var assignment = commandEntered.substring(1).split("=");
