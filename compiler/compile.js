@@ -7,10 +7,10 @@ function clearConsole() {
 }
 
 function doCmd() {
-	// Get the command block content
-	var commandBlockText = document.getElementById("commandBlock").innerText;
+	// Get the command block content and remove all newlines, carriage returns and tabs
+	var commandBlockText = document.getElementById("commandBlock").innerText.replace(/[\n\r\t]/g, '');
 	// Split commands by semicolons
-	var commands = commandBlockText.split(/[\n;]+/);
+	var commands = commandBlockText.split(/[;]+/);
 	
 	// Process each command
 	for (var i = 0; i < commands.length; i++) {
@@ -116,24 +116,11 @@ function checkLabLang(commandEntered) {
 					var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
 					
 					// Execute the code block the specified number of times
-					for (var j = 0; j < repetitions; j++) {
+					for (var j = 0; j < repetitions/2; j++) {
 						checkLabLang(codeBlock);  // Evaluate the block for each iteration
 					}
 				}
 			}
-		}
-	}
-
-	// Repeat loops (infinite)
-	else if (commandEntered.startsWith("repeat") && commandEntered.includes("{")) {
-		// Extract the block of code (inside the curly braces)
-		var blockStart = commandEntered.indexOf("{");
-		var blockEnd = commandEntered.lastIndexOf("}");
-		var codeBlock = commandEntered.substring(blockStart + 1, blockEnd).trim();
-		
-		// Execute the code block the specified number of times
-		while (true) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
 		}
 	}
 
