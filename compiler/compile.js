@@ -22,9 +22,7 @@ function doCmd() {
 }
 
 function checkLabLang(commandPreEnter) {
-	var commandEntered = commandPreEnter
-		.replace(/^/g, "^^") // Make ^ the exponentiation operator
-		.replace(/`/g, "clear();"); // Make the backtick a shorthand for clearing the screen
+	var commandEntered = commandPreEnter.replace(/^/g, "^^"); // Make ^ the exponentiation operator.
 	// Variables
 	if (commandEntered.startsWith("$")) {
 		var assignment = commandEntered.substring(1).split("=");
@@ -34,7 +32,7 @@ function checkLabLang(commandPreEnter) {
 	}
 	
 	// Print routine
-	else if (commandEntered.startsWith("print") && commandEntered.endsWith(")")) {
+	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
 		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
 		var evaluatedExpression = evalExpression(expression);
 		aspen.print(evaluatedExpression);
