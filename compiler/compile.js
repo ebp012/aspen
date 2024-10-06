@@ -32,7 +32,7 @@ function checkLabLang(commandEntered) {
 	
 	// Print routine
 	else if (commandEntered.startsWith("print(") && commandEntered.endsWith(")")) {
-		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
+		var expression = commandEntered.substring(6, commandEntered.length - 1).trim();
 		var evaluatedExpression = evalExpression(expression);
 		aspen.print(evaluatedExpression);
 	}
