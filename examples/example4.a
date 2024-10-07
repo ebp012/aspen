@@ -3,5 +3,7 @@
 $a = 7;
 $b = 6;
 note("\n" + a + " is");
-if (a < b) { note(" not ") };
+if (a < b) {
+	note(" not ")
+};
 note(" greater than " + b + ".");
