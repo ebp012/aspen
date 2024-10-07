@@ -1,0 +1,7 @@
+# This program prints whether a < b or not.;
+
+$a = 7;
+$b = 6;
+note("\n" + a + " is");
+if (a < b) { note(" not ") };
+note(" greater than " + b + ".");
