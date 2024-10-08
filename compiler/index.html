@@ -8,19 +8,30 @@
 		<div id='wrapper'>
 			<div id='topContainer'>
 				<span>
-					<button class='topbtn' onclick='eToggle("codeUpload");eInline("upbtn");  eHide("gitbtn");eHide("docsbtn");'>File</button>
-					<button class='topbtn' onclick='eInline("gitbtn");eInline("docsbtn");  eHide("codeUpload");eHide("upbtn");'>Help</button>
+					<button class='topbtn' onclick='eToggle("codeUpload");eInline("upbtn");  eHide("gitbtn");eHide("docsbtn");eHide("formatbtns")'>File</button>
+					<button class='topbtn' onclick='eInline("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>Format</button>
+					<button class='topbtn' onclick='eInline("gitbtn");eInline("docsbtn");  eHide("codeUpload");eHide("upbtn");eHide("formatbtns")'>Help</button>
 				</span>
 				<input type='file' id='codeUpload' class='topbtn hidden' accept='.a,.alib,.js'/>
 				<span>
 					<button onclick='window.open("https://dev.aeonic.me/aspen/", "_blank");' id='gitbtn' class='topbtn hidden'>GitHub</button>
 					<button onclick='window.open("https://github.com/ebp012/Aspen/wiki", "_blank");' id='docsbtn' class='topbtn hidden'>Documentation</button>
 					<button onclick='uploadAspen();' id='upbtn' class='topbtn hidden'>Upload</button>
+					<span id='formatbtns' class='hidden'>
+						<button class='topbtn' style='font-weight: bold; background-color: brown;' onclick='setStyle("bold");'>B</button>
+						<button class='topbtn' style='text-decoration: strikethrough; background-color: cream;' onclick='setStyle("reset");'>T</button>
+						<button class='topbtn' style='background-color: red;' onclick='setStyle("red");'></button>
+						<button class='topbtn' style='background-color: green;' onclick='setStyle("green");'></button>
+						<button class='topbtn' style='background-color: cyan;' onclick='setStyle("cyan");'></button>
+						<button class='topbtn' style='background-color: yellow;' onclick='setStyle("yellow");'></button>
+						<button class='topbtn' style='background-color: pink;' onclick='setStyle("pink");'></button>
+						<button class='topbtn' style='background-color: white;' onclick='setStyle("white");'></button>
+					</span>
 					<button onclick='doCmd();' id='dobtn' class='topbtn'>Run</button>
 				</span>
 			</div>
 			<div id='commandContainer'>
-				<div id='commandBlock' contenteditable>
+				<div id='commandBlock' data-gramm="false" contenteditable>
 					
 				</div>
 				<div id='cmdConsole'>
@@ -35,6 +46,46 @@
 				</div>
 			</div>
 		</div>
+		<script>
+		function setStyle (style) {
+			if (style == "white") {
+				document.getElementById("commandBlock").style.color="white";
+			}
+			else if (style == "red") {
+				document.getElementById("commandBlock").style.color="red";
+			}
+			else if (style == "green") {
+				document.getElementById("commandBlock").style.color="green";
+			}
+			else if (style == "cyan") {
+				document.getElementById("commandBlock").style.color="cyan";
+			}
+			else if (style == "yellow") {
+				document.getElementById("commandBlock").style.color="yellow";
+			}
+			else if (style == "pink") {
+				document.getElementById("commandBlock").style.color="pink";
+			}
+			else if (style == "white") {
+				document.getElementById("commandBlock").style.color="red";
+			}
+			else if (style == "bold") {
+				if (document.getElementById("commandBlock").style.fontWeight != "bold") {
+					document.getElementById("commandBlock").style.fontWeight="bold";
+				}
+				else {
+					document.getElementById("commandBlock").style.fontWeight="normal";
+				}
+			}
+			else if (style == "reset") {
+				document.getElementById("commandBlock").style.fontWeight="normal";
+				document.getElementById("commandBlock").style.color="white";
+			}
+			else {
+				aspen.warn("Invalid style properties.");
+			}
+		}
+		</script>
 		<!-- Aspen libraries -->
 		<script src='libs/aspen.js'></script> <!-- Aspen standard library -->
 		
