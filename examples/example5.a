@@ -1,0 +1,9 @@
+# This program prints whether the variable a is greater than the sum of each of the values of array b.;
+
+$a = 45;
+$b = [41,2];
+note("\n" + a + " is");
+if (a < b[0] + b[1]) {
+	note(" not ")
+};
+note(" greater than " + b[0] + " and " + b[1] + " combined.");
