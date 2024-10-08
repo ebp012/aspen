@@ -2,5 +2,7 @@
 
 $a = 0;
 note("Sample program to count up to 20: \n");
-repeat(20){print(a=a+1)};
+repeat(20){
+	print(a=a+1)
+};
 print("Done");
