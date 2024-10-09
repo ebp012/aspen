@@ -1,94 +1,112 @@
 html {
-    font-family: futura, segoe, sans-serif;
-    background-image: linear-gradient(to bottom, black, silver);
+	font-family: futura, segoe, sans-serif;
+	background-image: linear-gradient(to bottom, black, silver);
+	/*background-attachment: fixed;*/
 }
+
 #topContainer, #commandContainer, #aspenContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    padding: 10px 20px;
-    background-color: #0f0f0f;
-    border-radius: 20px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-    font-family: monospace;
-    z-index: 1000;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	padding: 10px 20px;
+	background-color: #0f0f0f;
+	background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b3ef3dc8-624e-4432-9e64-f3b33718d478/d5ne2t4-b203e89c-0a0a-4b4b-89df-bb97d0749212.png/v1/fill/w_900,h_750/black_linen_texture_by_nashiil_d5ne2t4-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzUwIiwicGF0aCI6IlwvZlwvYjNlZjNkYzgtNjI0ZS00NDMyLTllNjQtZjNiMzM3MThkNDc4XC9kNW5lMnQ0LWIyMDNlODljLTBhMGEtNGI0Yi04OWRmLWJiOTdkMDc0OTIxMi5wbmciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.o3oBhltB9LGNsc5wq_o4pCkAhFAPq_mqu1u4bfnjj6Y);
+	/*Credits for image: https://www.deviantart.com/nashiil/art/Black-Linen-Texture-341618872*/
+	border-radius: 2px;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+	font-family: monospace;
+	z-index: 1000;
+	box-shadow: 0px 1.5px 1.5px 1.5px silver;
 }
+
 #topContainer {
-    width: calc(100% - 80px);
-    left: 20px;
-    right: 20px;
-    height: 40px;
+	width: calc(100% - 80px);
+	left: 20px;
+	right: 20px;
+	height: 40px;
 }
+
 #commandContainer {
-    width: calc(50% - 80px);
-    height: calc(100% - 120px);
-    left: 20px;
-    font-family: monospace;
-    z-index: 1000;
-    overflow-x: scroll;
-    top: 80px;
-    bottom: 20px;
+	width: calc(50% - 80px);
+	height: calc(100% - 120px);
+	left: 20px;
+	font-family: monospace;
+	z-index: 1000;
+	overflow-x: scroll;
+	top: 80px;
+	bottom: 20px;
 }
+
 #aspenContainer {
-    width: calc(50% - 80px);
-    height: calc(100% - 120px);
-    right: 20px;
-    overflow-y: scroll;
-    top: 80px;
-    bottom: 20px;
+	width: calc(50% - 80px);
+	height: calc(100% - 120px);
+	right: 20px;
+	overflow-y: scroll;
+	top: 80px;
+	bottom: 20px;
 }
 
 #commandBlock, #aspenBlock {
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 8px;
-    color: white;
-    background-color: #0f0f0f;
-    box-shadow: none;
-    outline: none;
-    flex-grow: 1;
-    height: calc(100% - 80px);
+	border: 1px solid #444;
+	border-radius: 10px;
+	padding: 8px;
+	color: white;
+	background-color: #0f0f0f;
+	box-shadow: none;
+	outline: none;
+	flex-grow: 1;
+	height: calc(100% - 80px);
 }
+
 .topbtn {
-    border: none;
-    border-radius: 10px;
-    padding: 8px 15px;
-    background-color: slategrey;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0px 0px 5px 1px white, 2px 2px 2px green, inset 2px 2px 5px white;
-    outline: none;
+	border: none;
+	border-radius: 10px;
+	padding: 8px 15px;
+	background-color: slategrey;
+	color: white;
+	cursor: pointer;
+	box-shadow: 0px 0px 5px 1px white, 2px 2px 2px green, inset 2px 2px 5px white;
+	outline: none;
 }
+
 .topbtn:hover {
-    box-shadow: 0px 0px 5px 1px white, 2px 2px 2px green, inset 5px 5px 15px grey, -2px -2px 2px silver, 2px 2px 2px #71706e;
+	box-shadow: 0px 0px 5px 1px white, 2px 2px 2px green, inset 5px 5px 15px grey, -2px -2px 2px silver, 2px 2px 2px #71706e;
 }
+
 .topbtn:active {
-    box-shadow: 0px 0px 5px 1px silver, 2px 2px 2px green, inset 15px 15px 15px 15px black, -2px -2px -2px -2px black, -2px -2px -2px -2px black;
+	box-shadow: 0px 0px 5px 1px silver, 2px 2px 2px green, inset 15px 15px 15px 15px black, -2px -2px -2px -2px black, -2px -2px -2px -2px black;
 }
+
 #codeUpload {
-    cursor: auto;
+	cursor: auto;
 }
+
 .hidden {
-    display: none;
+	display: none;
 }
+
 .caret {
-    font-size: 20px;
-    cursor: pointer;
+	font-size: 20px;
+	cursor: pointer;
 }
+
 .cmdExpand {
-    justify-content: center;
-    height: 400px; /* Adjust as needed */
-    background-color: #1a1a1a;
-    border: 2px solid #333;
-    border-radius: 8px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: scroll;
+	justify-content: center;
+	height: 400px;
+	/* Adjust as needed */
+	background-color: #1a1a1a;
+	border: 2px solid #333;
+	border-radius: 8px;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+	position: relative;
+	overflow: scroll;
 }
+
 .cmdExpandBox {
-    height: 370px;
+	height: 370px;
 }
+
 .cmdConsole {
-    display: block;
+	display: block;
 }
