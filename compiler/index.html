@@ -1,97 +1,105 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Aspen alpha 1.7.1 compiler</title>
-		<link href='style.css' rel='stylesheet' type='text/css' />
-	</head>
-	<body>
-		<div id='wrapper'>
-			<div id='topContainer'>
-				<span>
-					<button class='topbtn' onclick='eToggle("codeUpload");eInline("upbtn");  eHide("gitbtn");eHide("docsbtn");eHide("formatbtns")'>File</button>
-					<button class='topbtn' onclick='eInline("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>Format</button>
-					<button class='topbtn' onclick='eInline("gitbtn");eInline("docsbtn");  eHide("codeUpload");eHide("upbtn");eHide("formatbtns")'>Help</button>
-				</span>
-				<input type='file' id='codeUpload' class='topbtn hidden' accept='.a,.alib,.js'/>
-				<span>
-					<button onclick='window.open("https://dev.aeonic.me/aspen/", "_blank");' id='gitbtn' class='topbtn hidden'>GitHub</button>
-					<button onclick='window.open("https://github.com/ebp012/Aspen/wiki", "_blank");' id='docsbtn' class='topbtn hidden'>Documentation</button>
-					<button onclick='uploadAspen();' id='upbtn' class='topbtn hidden'>Upload</button>
-					<span id='formatbtns' class='hidden'>
-						<button class='topbtn' style='font-weight: bold; background-color: brown;' onclick='setStyle("bold");'>B</button>
-						<button class='topbtn' style='text-decoration: strikethrough; background-color: cream;' onclick='setStyle("reset");'>T</button>
-						<button class='topbtn' style='background-color: red;' onclick='setStyle("red");'></button>
-						<button class='topbtn' style='background-color: green;' onclick='setStyle("green");'></button>
-						<button class='topbtn' style='background-color: cyan;' onclick='setStyle("cyan");'></button>
-						<button class='topbtn' style='background-color: yellow;' onclick='setStyle("yellow");'></button>
-						<button class='topbtn' style='background-color: pink;' onclick='setStyle("pink");'></button>
-						<button class='topbtn' style='background-color: white;' onclick='setStyle("white");'></button>
-					</span>
-					<button onclick='doCmd();' id='dobtn' class='topbtn'>Run</button>
-				</span>
-			</div>
-			<div id='commandContainer'>
-				<div id='commandBlock' data-gramm="false" contenteditable>
-					
-				</div>
-				<div id='cmdConsole'>
-				</div>
-			</div>
-			<div id='aspenContainer'>
-				<div id='aspenBlock'>
-					<div id='aspenConsole'>
-						<b>Aspen Compiler v0.8.2 beta</b>
-					</div>
-					<br/>
-				</div>
+
+<head>
+	<title>Aspen alpha 1.7.1 compiler</title>
+	<link href='style.css' rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+	<div id='wrapper'>
+		<div id='topContainer'> <span> <button class='topbtn' onclick='eToggle("codeUpload");eInline("upbtn");  eHide("gitbtn");eHide("docsbtn");eHide("formatbtns")'>File</button> <button class='topbtn' onclick='eInline("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>Format</button> <button class='topbtn' onclick='eInline("gitbtn");eInline("docsbtn");  eHide("codeUpload");eHide("upbtn");eHide("formatbtns")'>Help</button> </span> <input type='file' id='codeUpload' class='topbtn hidden' accept='.a,.alib,.js' /> <span> <button onclick='window.open("https://dev.aeonic.me/aspen/", "_blank");' id='gitbtn' class='topbtn hidden'>GitHub</button> <button onclick='window.open("https://github.com/ebp012/Aspen/wiki", "_blank");' id='docsbtn' class='topbtn hidden'>Documentation</button> <button onclick='uploadAspen();' id='upbtn' class='topbtn hidden'>Upload</button> <span id='formatbtns' class='hidden'> <button class='topbtn' style='font-weight: bold; background-color: gold; color: black;' onclick='setStyle("lightmode");' id='lightbtn'><i class='fa fa-sun-o'></i></button> <button class='topbtn hidden' style='font-weight: bold; background-color: navy; color: white;' onclick='setStyle("darkmode");' id='darkbtn'><i class='fa fa-moon-o'></i></button> <button class='topbtn' style='font-weight: bold; background-color: brown;' onclick='setStyle("bold");'>B</button> <button class='topbtn' style='text-decoration: strikethrough; background-color: cream;' onclick='setStyle("reset");'>T</button> <button class='topbtn' style='background-color: red;' onclick='setStyle("red");'></button> <button class='topbtn' style='background-color: green;' onclick='setStyle("green");'></button> <button class='topbtn' style='background-color: cyan;' onclick='setStyle("cyan");'></button> <button class='topbtn' style='background-color: yellow;' onclick='setStyle("yellow");'></button> <button class='topbtn' style='background-color: pink;' onclick='setStyle("pink");'></button> <button class='topbtn' style='background-color: white;' onclick='setStyle("white");' id='whitebtn'></button> </span> <button onclick='doCmd();' id='dobtn' class='topbtn'>Run</button> </span> </div>
+		<div id='commandContainer'>
+			<div id='commandBlock' data-gramm="false" contenteditable> </div>
+			<div id='cmdConsole'> </div>
+		</div>
+		<div id='aspenContainer'>
+			<div id='aspenBlock'>
+				<div id='aspenConsole'> <b>Aspen Compiler v0.8.2 beta</b> </div> <br />
 			</div>
 		</div>
-		<script>
-		function setStyle (style) {
-			if (style == "white") {
-				document.getElementById("commandBlock").style.color="white";
-			}
-			else if (style == "red") {
-				document.getElementById("commandBlock").style.color="red";
-			}
-			else if (style == "green") {
-				document.getElementById("commandBlock").style.color="green";
-			}
-			else if (style == "cyan") {
-				document.getElementById("commandBlock").style.color="cyan";
-			}
-			else if (style == "yellow") {
-				document.getElementById("commandBlock").style.color="yellow";
-			}
-			else if (style == "pink") {
-				document.getElementById("commandBlock").style.color="pink";
-			}
-			else if (style == "white") {
-				document.getElementById("commandBlock").style.color="red";
-			}
-			else if (style == "bold") {
-				if (document.getElementById("commandBlock").style.fontWeight != "bold") {
-					document.getElementById("commandBlock").style.fontWeight="bold";
-				}
-				else {
-					document.getElementById("commandBlock").style.fontWeight="normal";
-				}
-			}
-			else if (style == "reset") {
-				document.getElementById("commandBlock").style.fontWeight="normal";
-				document.getElementById("commandBlock").style.color="white";
+	</div>
+	<script>
+	var currentColor = "white";
+	
+	function setStyle(style) {
+		if (style == "red") {
+			document.getElementById("commandBlock").style.color = "red";
+			currentColor = "red";
+		}
+		else if (style == "green") {
+			document.getElementById("commandBlock").style.color = "green";
+			currentColor = "green";
+		}
+		else if (style == "cyan") {
+			document.getElementById("commandBlock").style.color = "cyan";
+			currentColor = "cyan";
+		}
+		else if (style == "yellow") {
+			document.getElementById("commandBlock").style.color = "yellow";
+			currentColor = "yellow";
+		}
+		else if (style == "pink") {
+			document.getElementById("commandBlock").style.color = "pink";
+			currentColor = "pink";
+		}
+		else if (style == "white") {
+			document.getElementById("commandBlock").style.color = "white";
+			currentColor = "white";
+		}
+		else if (style == "bold") {
+			if (document.getElementById("commandBlock").style.fontWeight != "bold") {
+				document.getElementById("commandBlock").style.fontWeight = "bold";
 			}
 			else {
-				aspen.warn("Invalid style properties.");
+				document.getElementById("commandBlock").style.fontWeight = "normal";
 			}
 		}
-		</script>
-		<!-- Aspen libraries -->
-		<script src='libs/aspen.js'></script> <!-- Aspen standard library -->
-		
-		<!-- Aspen interpreter scripts -->
-		<script src='https://www.aeonic.me/iridium/irid.js'></script> <!-- Aeonic irid.js -->
-		<script src='upload.js'></script> <!-- Script for uploading files -->
-		<script src='compile.js'></script> <!-- Script for interpreting the code -->
-	</body>
+		else if (style == "reset") {
+			document.getElementById("commandBlock").style.fontWeight = "normal";
+			document.getElementById("commandBlock").style.color = "white";
+		}
+		else if (style == "lightmode") {
+			document.getElementById("commandContainer").style.filter = "invert(100%)";
+			document.getElementById("commandBlock").style.filter = "invert(100%)";
+			document.getElementById("commandBlock").style.backgroundColor = "white";
+			document.getElementById("aspenContainer").style.filter = "invert(100%)";
+			document.getElementById("aspenBlock").style.filter = "invert(100%)";
+			document.getElementById("aspenBlock").style.backgroundColor = "white";
+			document.getElementById("aspenBlock").style.color = "black";
+			document.getElementById("whitebtn").style.backgroundColor = "black";
+			eHide("lightbtn");
+			eShow("darkbtn");
+			if (currentColor == "white") {
+				document.getElementById("commandBlock").style.color = "black";
+			}
+		}
+		else if (style == "darkmode") {
+			document.getElementById("commandContainer").style.filter = "invert(0%)";
+			document.getElementById("commandBlock").style.filter = "invert(0%)";
+			document.getElementById("commandBlock").style.backgroundColor = "black";
+			document.getElementById("aspenContainer").style.filter = "invert(0%)";
+			document.getElementById("aspenBlock").style.filter = "invert(0%)";
+			document.getElementById("aspenBlock").style.backgroundColor = "black";
+			document.getElementById("aspenBlock").style.color = "white";
+			document.getElementById("whitebtn").style.backgroundColor = "white";
+			eHide("darkbtn");
+			eShow("lightbtn");
+			if (currentColor == "white") {
+				document.getElementById("commandBlock").style.color = "white";
+			}
+		}
+		else {
+			aspen.warn("Invalid style properties.");
+		}
+	}
+	</script> <!-- Aspen libraries -->
+	<script src='libs/aspen.js'></script> <!-- Aspen standard library -->
+	<!-- Aspen interpreter scripts -->
+	<script src='https://www.aeonic.me/iridium/irid.js'></script> <!-- Aeonic irid.js -->
+	<script src='upload.js'></script> <!-- Script for uploading files -->
+	<script src='compile.js'></script> <!-- Script for interpreting the code -->
+</body>
+
 </html>
