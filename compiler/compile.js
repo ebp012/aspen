@@ -8,7 +8,8 @@ function clearConsole() {
 
 function doCmd() {
 	aspen.clear();
-	aspen.print("Aspen Compiler v0.8.2 beta");
+	aspen.note("Aspen Compiler v0.8.2 beta\n");
+	variableStore = {};
 	// Get the command block content and remove all newlines, carriage returns and tabs
 	var commandBlockText = document.getElementById("commandBlock").innerText.replace(/[\n\r\t]/g, '');
 	// Split commands by semicolons
