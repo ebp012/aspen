@@ -35,7 +35,6 @@ html {
 	left: 20px;
 	font-family: monospace;
 	z-index: 1000;
-	overflow-y: scroll;
 	top: 80px;
 	bottom: 20px;
 }
@@ -44,7 +43,6 @@ html {
 	width: calc(50% - 80px);
 	height: calc(100% - 120px);
 	right: 20px;
-	overflow-y: scroll;
 	top: 80px;
 	bottom: 20px;
 }
@@ -59,6 +57,7 @@ html {
 	outline: none;
 	flex-grow: 1;
 	height: calc(100% - 80px);
+	overflow: auto;
 }
 
 .topbtn {
