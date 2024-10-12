@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<body>
+	<menus>
+		<ribbon name='File'>
+			<button id='upbtn'>Upload</button>
+			<button id='savebtn'>Save</button>
+			<button id='downbtn'>Save As</button>
+		</ribbon>
+		<ribbon name='View'>
+			<button id='boldbtn'>B</button>
+		</ribbon>
+		<ribbon name='Compile'>
+			<button id='dobtn'>Run</button>
+		</ribbon>
+		<ribbon name='Help'>
+			<button id='gitbtn'>GitHub</button>
+			<button id='docsbtn'>Docs</button>
+		</ribbon>
+	</menus>
+	<console value='Aspen Compiler v0.8.2 beta' />
+</body>
