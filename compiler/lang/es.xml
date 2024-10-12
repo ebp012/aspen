@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<body>
+	<menus>
+		<ribbon name='Archivo'>
+			<button id='upbtn'>Subir</button>
+			<button id='savebtn'>Guardar</button>
+			<button id='downbtn'>Guardar A</button>
+		</ribbon>
+		<ribbon name='Mirar'>
+			<button id='boldbtn'>B</button>
+		</ribbon>
+		<ribbon name='Compilar'>
+			<button id='dobtn'>Hacer</button>
+		</ribbon>
+		<ribbon name='Ayuda'>
+			<button id='gitbtn'>GitHub</button>
+			<button id='docsbtn'>Doces</button>
+		</ribbon>
+	</menus>
+	<console value='Compilador de Aspen v0.8.2 beta' />
+</body>
