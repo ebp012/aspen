@@ -13,7 +13,7 @@
 			<div>
 				<button class='topbtn' onclick='eToggle("codeUpload");eInline("upbtn");  eHide("gitbtn");eHide("docsbtn");eHide("formatbtns")'>File</button>
 				<button class='topbtn viewbtn' onclick='eInline("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>View</button>
-				<button class='topbtn compilebtn' onclick='eInline("dobtn"); eHide("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>Compile</button>
+				<button class='topbtn compilebtn' onclick='eInline("compilebtns"); eHide("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>Compile</button>
 				<button class='topbtn helpbtn' onclick='eInline("gitbtn");eInline("docsbtn");  eHide("codeUpload");eHide("upbtn");eHide("formatbtns")'>Help</button>
 			</div>
 			<input type='file' id='codeUpload' class='topbtn hidden' accept='.a,.alib,.air' />
@@ -34,7 +34,11 @@
 					<button class='topbtn viewbtn' style='background-color: white;' onclick='setStyle("white");' id='whitebtn'></button>
 					<button class='topbtn viewbtn hidden' style='background-color: black;' onclick='setStyle("black");' id='blackbtn'></button>
 				</span>
-				<button onclick='doCmd();' id='dobtn' class='topbtn compilebtn'>Run</button>
+        <span id='compilebtns' class='hidden'>
+        	<button onclick='writeFile();' id='upbtn' class='topbtn viewbtn'>Download</button>
+        	<button onclick='buildApp();' id='upbtn' class='topbtn viewbtn'>Build</button>
+        </span>
+        <button onclick='doCmd();' id='dobtn' class='topbtn compilebtn'>Run</button>
 			</div>
 		</div>
 		<div id='commandContainer'>
@@ -129,7 +133,7 @@
 	</script> <!-- Aspen libraries -->
 	<script src='libs/aspen.js'></script> <!-- Aspen standard library -->
 	<!-- Aspen interpreter scripts -->
-	<script src='https://www.aeonic.me/iridium/irid.js'></script> <!-- Aeonic irid.js -->
+	<script src='libs/irid.js'></script> <!-- Aeonic irid.js -->
 	<script src='compile.js'></script> <!-- Script for interpreting the code -->
 	<script src='upload.js'></script> <!-- Script for uploading code files -->
 </body>
