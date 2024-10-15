@@ -7,14 +7,14 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="setLang();">
+<body onload="importDefaults(); setLang();">
 	<div id='wrapper'>
 		<div id='topContainer'>
 			<div>
-				<button class='topbtn' onclick='eToggle("codeUpload");eInline("upbtn");  eHide("gitbtn");eHide("docsbtn");eHide("formatbtns")'>File</button>
-				<button class='topbtn viewbtn' onclick='eInline("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>View</button>
-				<button class='topbtn compilebtn' onclick='eInline("compilebtns"); eHide("formatbtns");  eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>Compile</button>
-				<button class='topbtn helpbtn' onclick='eInline("gitbtn");eInline("docsbtn");  eHide("codeUpload");eHide("upbtn");eHide("formatbtns")'>Help</button>
+				<button class='topbtn' onclick='eToggle("codeUpload");eInline("upbtn");	eHide("gitbtn");eHide("docsbtn");eHide("formatbtns")'>File</button>
+				<button class='topbtn viewbtn' onclick='eInline("formatbtns");	eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>View</button>
+				<button class='topbtn compilebtn' onclick='eInline("compilebtns"); eHide("formatbtns");	eHide("gitbtn");eHide("docsbtn");eHide("upbtn");eHide("codeUpload")'>Compile</button>
+				<button class='topbtn helpbtn' onclick='eInline("gitbtn");eInline("docsbtn");	eHide("codeUpload");eHide("upbtn");eHide("formatbtns")'>Help</button>
 			</div>
 			<input type='file' id='codeUpload' class='topbtn hidden' accept='.a,.alib,.air' />
 			<div>
@@ -34,11 +34,11 @@
 					<button class='topbtn viewbtn' style='background-color: white;' onclick='setStyle("white");' id='whitebtn'></button>
 					<button class='topbtn viewbtn hidden' style='background-color: black;' onclick='setStyle("black");' id='blackbtn'></button>
 				</span>
-        <span id='compilebtns' class='hidden'>
-        	<button onclick='writeFile();' id='upbtn' class='topbtn viewbtn'>Download</button>
-        	<button onclick='buildApp();' id='upbtn' class='topbtn viewbtn'>Build</button>
-        </span>
-        <button onclick='doCmd();' id='dobtn' class='topbtn compilebtn'>Run</button>
+				<span id='compilebtns' class='hidden'>
+					<button onclick='writeFile();' id='upbtn' class='topbtn viewbtn'>Download</button>
+					<button onclick='buildApp();' id='upbtn' class='topbtn viewbtn'>Build</button>
+				</span>
+				<button onclick='doCmd();' id='dobtn' class='topbtn compilebtn'>Run</button>
 			</div>
 		</div>
 		<div id='commandContainer'>
@@ -129,6 +129,11 @@
 			}
 		}
 		function setLang() {
+		}
+		function importDefaults() {
+			document.getElementById("commandBlock").innerText="$pi = 3.14159265358979323846264338;$tau = 6.28318530717958647692528677;$splight = 299792458;$euler = 2.71828182845904523536028747;";
+			doCmd();
+			document.getElementById("commandBlock").innerText="";
 		}
 	</script> <!-- Aspen libraries -->
 	<script src='libs/aspen.js'></script> <!-- Aspen standard library -->
