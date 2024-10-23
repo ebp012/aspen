@@ -8,8 +8,7 @@ function clearConsole() {
 
 function doCmd() {
 	aspen.clear();
-	aspen.note("Aspen Compiler v0.8.2 beta\n");
-	variableStore = {};
+	aspen.print("Aspen Compiler v0.8.2 beta");
 	// Get the command block content and remove all newlines, carriage returns and tabs
 	var commandBlockText = document.getElementById("commandBlock").innerText.replace(/[\n\r\t]/g, '');
 	// Split commands by semicolons
@@ -19,7 +18,7 @@ function doCmd() {
 	for (var i = 0; i < commands.length; i++) {
 		var command = commands[i].trim();
 		if (command.length > 0) {
-		    checkLabLang(command);  // Interpret each command
+			checkLabLang(command);  // Interpret each command
 		}
 	}
 }
