@@ -16,7 +16,7 @@ var math = {
 		},
 		// Detect or solve difference of perfect squares
 		dops: function (a, b, c, factor) {
-			if (Math.sqrt(a) % 1 == 0 && b == 0 && Math.sqrt(c) % 1 == 0) {
+			if (Math.sqrt(a) % 1 == 0 && b == 0 && c < 0 && Math.sqrt(c) % 1 == 0) {
 				return true;
 			}
 			else {
@@ -27,7 +27,7 @@ var math = {
 	// Cubic Functions
 	cube: {
 		dopc: function (a, b, c, d) {
-			if (Math.cbrt(a) % 1 == 0 && b == 0 && c == 0 && Math.cbrt(d) % 1 == 0) {
+			if (Math.cbrt(a) % 1 == 0 && b == 0 && c == 0 && c < 0 && Math.cbrt(d) % 1 == 0) {
 				return -1;
 			}
 			else if (Math.cbrt(a) % 1 == 0 && b == 0 && c == 0 && Math.cbrt(d) % 1 == 0) {
