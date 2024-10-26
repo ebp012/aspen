@@ -27,10 +27,10 @@ var math = {
 	// Cubic Functions
 	cube: {
 		dopc: function (a, b, c, d) {
-			if (Math.cbrt(a) % 1 == 0 && b == 0 && c == 0 && c < 0 && Math.cbrt(d) % 1 == 0) {
+			if (Math.cbrt(a) % 1 == 0 && b == 0 && c == 0 && d < 0 && Math.cbrt(d) % 1 == 0) {
 				return -1;
 			}
-			else if (Math.cbrt(a) % 1 == 0 && b == 0 && c == 0 && Math.cbrt(d) % 1 == 0) {
+			else if (Math.cbrt(a) % 1 == 0 && b == 0 && d < 0 && Math.cbrt(d) % 1 == 0) {
 				return 1;
 			}
 			else {
