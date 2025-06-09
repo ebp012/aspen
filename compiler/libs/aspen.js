@@ -1,4 +1,5 @@
 var promptID = 1;
+var inputStatus = true;
 var aspen = {
 	// Input/Output Routines
 		// Print text with newlines
@@ -17,17 +18,24 @@ var aspen = {
 		log: function (text) {
 			console.log(text);
 		},
-		// Scan inputted text as a text input
-		take: function (text, placeholder = "") {
-			aspenConsole.innerHTML += "<input type='text' placeholder='" + placeholder + "' id='prompt" + promptID + "' class='userinput' /><input type='submit' onclick='aspen.info();'/>";
-			promptID += 1;
-			return placeholder;
-		},
-		// Return inputted text
-		info: function (id) {
-			var mostRecentInput = document.getElementById('prompt' + (promptID - 1));
-			return mostRecentInput.value;
-		},
+    // Scan inputted text as a text input
+    take: function (text, placeholder = "") {
+      inputStatus = false;
+      aspenConsole.innerHTML += "<input type='text' placeholder='" + placeholder + "' id='prompt" + promptID + "' class='userinput' /><input type='submit' onclick='aspen.submitInput();'/>";
+      document.getElementById('prompt' + id).value;
+    },
+    submitInput: function () {
+      inputStatus = true;
+    },
+    // Return inputted text
+    info: function (id) {
+      if (id >= 1) {
+        return document.getElementById('prompt' + (promptID - 1)).value;
+      }
+      else {
+        return document.getElementById('prompt' + id).value;
+      }
+    },
 	// Basic Functions
 		// Sleep for a specified amount of seconds
 		sleep: function (time) {
@@ -43,17 +51,39 @@ var aspen = {
 		instant: function () {
 			aspenConsole.innerText += new Date().toLocaleTimeString() + "\n";
 		},
-	
+	// Array Routines
+    arrayPlus: function(arr1, arr2) {
+      if (arr1.length !== arr2.length) {
+          aspen.warn("Arrays or complex numbers must be the same size.")
+      }
+
+      return arr1.map((value, index) => value + arr2[index]);
+    },
+    arrayMinus: function(arr1, arr2) {
+      if (arr1.length !== arr2.length) {
+          aspen.warn("Arrays or complex numbers must be the same size.")
+      }
+
+      return arr1.map((value, index) => value - arr2[index]);
+    },
+    toComplex: function(a, b) {
+      if (!(a == 0 || a == null) && (b == 0 || b == null)) {
+        return [1, a, 0];
+      }
+      else if (!(b != 0 || b == null) && (a == 0 || a == null)) {
+        return [2, 0, b];
+      }
+    },
 	// Console Routines
 		// Change console text colour
 		color: function (colour) {
 			aspenConsole.style.color = colour;
-			return colour;
+      return colour;
 		},
 		// Change console background colour
 		bgcolor: function (colour) {
 			aspenConsole.style.backgroundColor = colour;
-			return colour;
+      return colour;
 		},
 		// Clear the console
 		clear: function () {

@@ -1,13 +1,16 @@
 # The constants that will remain unchanged and unchangeable in Aspen;
 
 # pi;
-@pi = 3.14159265358979323846264338; # Rounded to 27 digits;
+$pi = 3.14159265358979323846264338; # Rounded to 27 digits;
 
 # tau;
-@tau = 6.28318530717958647692528677; # Rounded up to 27 digits;
+$tau = 6.28318530717958647692528677; # Rounded up to 27 digits;
 
 # c (the speed of light);
-@splight = 299792458;
+$splight = 299792458;
 
 # e;
-@euler = 2.71828182845904523536028747; # Rounded to 27 digits;
+$euler = 2.71828182845904523536028747; # Rounded to 27 digits;
+
+# i;
+$imaginary = [2, 0, 1];
