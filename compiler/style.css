@@ -123,3 +123,22 @@ html {
 .cmdConsole {
 	display: block;
 }
+@media only screen and (max-width: 700px) {
+  .helpbtn, .viewbtn, .topbtn:nth-of-type(3) {
+    display: none;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .compilebtn not(#dobtn) {
+    display: none;
+  }
+}
+.userinput {
+  border: none;
+  outline: none;
+	border-radius: 10px;
+	color: white;
+	background-color: #0f0f0f;
+	box-shadow: none;
+  font-family: courier, monospace;
+}

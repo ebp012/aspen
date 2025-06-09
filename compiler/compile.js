@@ -1,4 +1,5 @@
 var calcResult;
+var previousConditionMet;
 var aspenConsole = document.getElementById("aspenConsole");
 var variableStore = {};
 
@@ -6,24 +7,34 @@ function clearConsole() {
 	aspenConsole.innerText = "";
 }
 
-function doCmd() {
-	aspen.clear();
-	aspen.print("Aspen Compiler v0.8.2 beta");
-	// Get the command block content and remove all newlines, carriage returns and tabs
-	var commandBlockText = document.getElementById("commandBlock").innerText.replace(/[\n\r\t]/g, '');
-	// Split commands by semicolons
-	var commands = commandBlockText.split(/[;]+/);
-	
-	// Process each command
-	for (var i = 0; i < commands.length; i++) {
-		var command = commands[i].trim();
-		if (command.length > 0) {
-			checkLabLang(command);  // Interpret each command
-		}
-	}
+async function doCmd(list) {
+    aspen.clear();
+    aspen.print("Aspen Compiler v0.8.2 beta");
+    if (list != null) {
+      // If an argument was passed on to this function, that is what the compiler executes
+      var commandBlockText = list;
+      // Split command by commas, but ignore commas preceded by backslashes
+      var commands = commandBlockText.split(/(?<!\\);(?!\s*[\}-])/);
+    }
+    else {
+      // Get the command block content and remove all newlines, carriage returns and tabs
+      var commandBlockText = document.getElementById("commandBlock").innerText.replace(/[\n\r\t]/g, '');
+      // Split commands by semicolons, but ignore semicolons preceded by backslashes. 
+      var commands = commandBlockText.split(/(?<!\\);(?!\s*[\}-])/);
+    }
+    
+    for (var i = 0; i < commands.length; i++) {
+        var command = commands[i].trim();
+        if (command.length > 0) {
+            await checkLabLang(command);  // Await each command
+        }
+    }
+    previousConditionMet = null;
 }
 
-function checkLabLang(commandEntered) {
+
+
+async function checkLabLang(commandEntered) {
 	// Variables
 	if (commandEntered.startsWith("$")) {
 		var assignment = commandEntered.substring(1).split("=");
@@ -55,9 +66,25 @@ function checkLabLang(commandEntered) {
 
 	// Log routine, logs to console rather than to GUI
 	else if (commandEntered.startsWith("log(") && commandEntered.endsWith(")")) {
-		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
+		var expression = commandEntered.substring(4, commandEntered.length - 1).trim();
 		var evaluatedExpression = evalExpression(expression);
 		aspen.warn(evaluatedExpression);
+	}
+  
+  // Take routine, takes user input
+	else if (commandEntered.startsWith("take(") && commandEntered.endsWith(")")) {
+      var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
+      aspen.take(expression); // Ensure the placeholder is being passed correctly
+  }
+  
+  // Info routine, stores user input
+	else if (commandEntered.startsWith("info(") && commandEntered.endsWith(")")) {
+		var expression = commandEntered.substring(5, commandEntered.length - 1).trim();
+		var evaluatedExpression = evalExpression(expression);
+		if (evaluatedExpression == null || evaluatedExpression == "input") {
+      aspen.take();
+      
+    }
 	}
 
 	// Sleep routine, pause execution for expression number of seconds
@@ -119,7 +146,7 @@ function checkLabLang(commandEntered) {
 					
 					// Execute the code block the specified number of times
 					for (var j = 0; j < repetitions/2; j++) {
-						checkLabLang(codeBlock);  // Evaluate the block for each iteration
+						doCmd(codeBlock);  // Evaluate the block for each iteration
 					}
 				}
 			}
@@ -139,7 +166,7 @@ function checkLabLang(commandEntered) {
 		
 		// Execute the block of code while the condition is true
 		while (evalExpression(condition)) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+			doCmd(codeBlock);  // Evaluate the block for each iteration
 		}
 	}
 
@@ -156,7 +183,7 @@ function checkLabLang(commandEntered) {
 		
 		// Execute the block of code until the condition becomes true
 		while (!evalExpression(condition)) {
-			checkLabLang(codeBlock);  // Evaluate the block for each iteration
+			doCmd(codeBlock);  // Evaluate the block for each iteration
 		}
 	}
 
@@ -173,7 +200,7 @@ function checkLabLang(commandEntered) {
 		
 		// Execute the block of code if the condition is true
 		if (evalExpression(condition)) {
-			checkLabLang(codeBlock);  // Evaluate the block
+			doCmd(codeBlock);  // Evaluate the block
 		}
 	}
 	else if (commandEntered.startsWith("elif") && commandEntered.includes("{") && commandEntered.includes("(") && commandEntered.includes(")")) {
@@ -189,7 +216,7 @@ function checkLabLang(commandEntered) {
 		// Check if the previous condition was false (assumed tracked elsewhere)
 		// Execute elif block only if condition is true and the previous if/elif was false
 		if (!previousConditionMet && evalExpression(condition)) {
-			checkLabLang(codeBlock);  // Evaluate the block
+			doCmd(codeBlock);  // Evaluate the block
 			previousConditionMet = true;  // Mark this branch as executed
 		}
 	}
@@ -202,7 +229,7 @@ function checkLabLang(commandEntered) {
 		
 		// Execute the else block only if all previous conditions were false
 		if (!previousConditionMet) {
-			checkLabLang(codeBlock);  // Evaluate the block
+			doCmd(codeBlock);  // Evaluate the block
 		}
 	}
 
@@ -219,13 +246,6 @@ function checkLabLang(commandEntered) {
 	
 }
 
-/*function evalExpression(expression) {
-	// Replace variables with their values from variableStore, if they exist
-	return eval(expression.replace(/\b\w+\b/g, function(match) {
-		// If it's a variable in variableStore, replace it with the stored value
-		return variableStore.hasOwnProperty(match) ? `variableStore['${match}']` : match;
-	}));
-}*/
 
 function evalExpression(expression) {
 	// Replace variables with their values from variableStore, if they exist

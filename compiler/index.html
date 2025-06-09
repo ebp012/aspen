@@ -131,19 +131,23 @@
 		function setLang() {
 		}
     function importDefaults() {
-      var constantsAir = new XMLHttpRequest();
-      constantsAir.open('GET', 'libs/constants.air');
-      constantsAir.onreadystatechange = function() {
-        if (constantsAir.readyState === 4 && constantsAir.status === 200) { // Check if the response is ready
-          document.getElementById("commandBlock").innerText = constantsAir.responseText;
+      importAir("constants.air");
+    }
+
+    function thenClear () { document.getElementById("commandBlock").innerText=""; }
+    
+    function importAir() {
+      var accessedAir = new XMLHttpRequest();
+      accessedAir.open('GET', 'libs/constants.air');
+      accessedAir.onreadystatechange = function() {
+        if (accessedAir.readyState === 4 && accessedAir.status === 200) { // Check if the response is ready
+          document.getElementById("commandBlock").innerText = accessedAir.responseText;
           doCmd(); // Run after content loads
           document.getElementById("commandBlock").innerText = ""; // Clear after running doCmd
         }
       };
-      constantsAir.send();
+      accessedAir.send();
     }
-
-    function thenClear () { document.getElementById("commandBlock").innerText=""; }
 	</script> <!-- Aspen libraries -->
 	<script src='libs/aspen.js'></script> <!-- Aspen standard library -->
   <script src='libs/math.js'></script> <!-- Aspen mathematical library -->
